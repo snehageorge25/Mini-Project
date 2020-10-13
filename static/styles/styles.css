@@ -1,0 +1,52 @@
+body{
+    background: #d605da;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #03c7ca, #ce03d1);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #03cccf, #db03df); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.m-100{
+    margin-top:100px;
+}
+
+.tabs{
+    position: relative;
+    width: 300px; 
+    background: #f5f5f5;
+}
+
+.tabs .tab-header{
+    height: 50px;
+    line-height: 50px;
+}
+
+.tabs .tab-header > div{
+    width:50%;
+    float: left;
+    text-align: center;
+    background: #ddd;
+    color: #555;
+    cursor: pointer;
+}
+
+.tabs .tab-header > div.active{
+    background: #f5f5f5;
+    color: #111;
+}
+
+.tabs .tab-content .form-group input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaa;
+    background: #f5f5f5;
+    border-radius: 5px;
+    outline: none;
+}
+
+.tabs .tab-content > div.active{
+    display: block;
+}
+
+.tabs .tab-content > div{
+    display: none ;
+}
