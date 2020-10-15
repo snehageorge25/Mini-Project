@@ -11,13 +11,41 @@ background: linear-gradient(to right,#5F0A87,#A4508B); /* W3C, IE 10+/ Edge, Fir
 }
 
 nav h1{
+    
     color: white;
 }
 
+.active
+{
+    color: blanchedalmond;
+}
 div p{
     color:darkgrey;
     font-weight:bolder;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Sform{
+    align-content: center;
+    margin-top: 2rem;
+    background:transparent;
+}
+
+.Sform h1{
+    color: black;
+    font-weight: bold;
+}
+
+.Sform p{
+    color: black;
+    font-size: medium;
+}
+
+.form-group-1{
+    padding-top: 1rem;
+    font-size: large;
+    font-weight: bold;
+    color: black;
 }
 
 .m-100{
