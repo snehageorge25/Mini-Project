@@ -1,110 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <!-- CSS Personalized -->
-  <link rel="stylesheet" href="../static/styles/styles.css">
-  <title>Document</title>
-</head>
-<body >
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <!-- CSS Personalized -->
+    <link rel="stylesheet" href="../static/styles/styles.css" />
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+  </head>
+  <body>
     <header>
-        <div id="header">
-            <!-- Container starts -->
-            <div class="container-fluid">
-              <nav class="navbar navbar-dark  navbar-expand-xl pr-1">
-                <h1 class="pl-0 name col-8 col-xl-4 text-wrap">BOOKMART</h1>
-      
-                <button data-toggle="collapse" data-target="#navbarToggler" class="navbar-toggler" type="button">
-                  <span class="navbar-toggler-icon"></span></button>
-      
-                <div class="collapse navbar-collapse" id="navbarToggler">
-                  <ul class="navbar-nav pr-5 ml-auto">
-      
-                    <li class="nav-item">
-                      <a class="nav-link pl-3" href="index.html">Buy Books</a>
-                    </li>
-      
-                    <li class="nav-item">
-                      <a class="nav-link pl-3 active" href="sellbooks.html">Sell Books</a>
-                    </li>
-      
-                    <li class="nav-item">
-                      <a class="nav-link pl-3" href="#">My Cart</a>
-                    </li>
-      
-                    <li class="nav-item dropdown">
-                      <a class="nav-link pl-3 dropdown-toggle" data-toggle="dropdown" role="button" href="#">Hello,</a>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">My Orders</a>
-                        <a class="dropdown-item" href="#">Books Sold/To Sell</a>
-                        <a class="dropdown-item" href="#">Give Feedback</a>
-                        <a class="dropdown-item" href="#">Logout</a>
-                      </div>
-                    </li>
-                  </ul>
+      <div id="header">
+        <!-- Container starts -->
+        <nav class="navbar navbar-dark navbar-expand-xl pr-1 bg-dark">
+          <a class="navbar-brand text-bold" href="#" ><h1 class="name col-8 col-xl-4 text-wrap pl-0">BOOKMART</h1></a>
+          
+
+
+          <button
+            data-toggle="collapse"
+            data-target="#navbarToggler"
+            class="navbar-toggler m-1"
+            type="button"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse mr-2" id="navbarToggler" style="font-size:large;">
+            <ul class="navbar-nav pr-5 ml-auto">
+              <li class="nav-item">
+                <a class="nav-link pl-3" href="index.html">Buy Books</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link pl-3 active" href="sellbooks.html">Sell Books</a>
+              </li>
+
+
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link pl-3 dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  href="#"
+                  >Hello,</a
+                >
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">My Profile</a>
+                  <a class="dropdown-item" href="#">My Orders</a>
+                  <a class="dropdown-item" href="#">Books Sold/To Sell</a>
+                  <a class="dropdown-item" href="#">Give Feedback</a>
+                  <a class="dropdown-item" href="#">Logout</a>
                 </div>
-              </nav>
-            </div>
+              </li>
+
+              <li class="nav-item text-white">
+                <a class="nav-link pl-3" href="#">
+                  <i class="fa fa-shopping-cart " style="font-size:24px;color:white"></i>
+                </a>
+              </li>
+
+            </ul>
           </div>
+        </nav>
+      </div>
     </header>
-    
+    <br>
     <div class="container">
-        <div class="Sform w-50 m-auto">
-        <h1>Book Registeration Form</h1>
-        <p>Fill out the details carefully.</p>
-        <form class="form-horizontal" action="/action_page.php">
-          <div class="form-group-1">
-            <label  class="control-label col-xs-2" for="BookName">Book Name:</label>
-            <div class="col-sm-10">
-            <input type="text" class="form-control" id="BookName" required placeholder="Enter Book Name" name="Book Name">
-            </div>  
-        </div>
+      <div class="row">
+        <div class="Sform col-sm-10 col-md-10 col-lg-8 m-auto">
+          <h1>Book Registeration Form</h1>
+          <p>Fill out the details carefully.</p>
+          <form class="form-horizontal" action="/action_page.php">
+            <div class="form-group-1">
+              <label class="control-label col-xs-2" for="BookName"
+                >Book Name:</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="BookName"
+                  required
+                  placeholder="Enter Book Name"
+                  name="Book Name"
+                />
+              </div>
+            </div>
 
-          <div class="form-group-1">
-            <label class="control-label col-xs-2" for="AuthorName">Author Name:</label>
-            <div class="col-sm-10">
-            <input type="text" class="form-control" id="AuthorName" required placeholder="Enter Author Name" name="Author Name">
-            </div>  
-        </div>
+            <div class="form-group-1">
+              <label class="control-label col-xs-2" for="AuthorName"
+                >Author Name:</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="AuthorName"
+                  required
+                  placeholder="Enter Author Name"
+                  name="Author Name"
+                />
+              </div>
+            </div>
 
-          <div class="form-group-1">
-            <label  for="Publication">Publication Name:</label>
-            <div class="col-sm-10">
-            <input type="text" class="form-control" id="Publication" placeholder="Enter Publication Name" name="Publication Name">
-          </div>
-          </div>
+            <div class="form-group-1">
+              <label for="Publication">Publication Name:</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Publication"
+                  placeholder="Enter Publication Name"
+                  name="Publication Name"
+                />
+              </div>
+            </div>
 
-          <div class="form-group-1">
-            <label class="control-label col-xs-2" for="Actual Price">Actual Price:</label>
-            <div class="col-sm-10">
-            <input type="number"  min="0" max="10000" class="form-control" id="Actual Price" placeholder="Enter Actual Price" name="Actual Price">
-            </div>  
-        </div>
+            <div class="form-group-1">
+              <label class="control-label col-xs-2" for="Actual Price"
+                >Actual Price:</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="number"
+                  min="0"
+                  max="10000"
+                  class="form-control"
+                  id="Actual Price"
+                  placeholder="Enter Actual Price"
+                  name="Actual Price"
+                />
+              </div>
+            </div>
 
-          <div class="form-group-1">
-            <label class="control-label col-xs-2" for="Proposed Price">Proposed Price:</label>
-            <div class="col-sm-10">
-            <input type="number"  min="0" max="10000" class="form-control" id="Proposed Price"  required placeholder="Enter Proposed Price" name="Proposed Price">
-            </div>  
-        </div>
+            <div class="form-group-1">
+              <label class="control-label col-xs-2" for="Proposed Price"
+                >Proposed Price:</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="number"
+                  min="0"
+                  max="10000"
+                  class="form-control"
+                  id="Proposed Price"
+                  required
+                  placeholder="Enter Proposed Price"
+                  name="Proposed Price"
+                />
+              </div>
+            </div>
 
-          <div class="form-group-1">
-            <label  for="">Book Image:</label>
-            <input type="file"  id="Book Image" accept="image/*" name="Book Image">
-          </div>
-
-          <button type="submit" class="btn-success wr-10 mt-2 ">Submit</button>
-        </form>
+            <div class="form-group-1">
+              <label for="">Book Image:</label>
+              <input
+                type="file"
+                id="Book Image"
+                accept="image/*"
+                name="Book Image"
+              />
+            </div>
+            <button type="submit" class="btn btn-success m-3 float-left">
+              Submit
+            </button>
+          </form>
         </div>
       </div>
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-    </body> 
-    </html>     
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,28 +1,21 @@
 body{
-    background: #61045f;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #5F0A87,#A4508B);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right,#5F0A87,#A4508B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-/*background-image: url(first.jpg);*/
-}
-.container-fluid{
-    background-color:black;
-    padding-left: 0;
-    padding-right: 0;
+    /* background: #61045f; 
+background: -webkit-linear-gradient(to right, #5F0A87,#A4508B); 
+background: linear-gradient(to right,#5F0A87,#A4508B);  */
+
+background: paleturquoise;
+
+/* background-image: url('/images/bg.png'); */
 }
 
-nav h1{
+/* nav h1{
     
     color: white;
-}
+} */
 
-.active
-{
-    color: blanchedalmond;
-}
+
 div p{
-    color:darkgrey;
     font-weight:bolder;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .Sform{
@@ -51,6 +44,7 @@ div p{
     margin-top:100px;
 }
 
+/* tabs for signup and login */
 .tabs{
     position: relative;
     width: 300px; 
@@ -62,9 +56,18 @@ div p{
     line-height: 50px;
 }
 
+
 .tabs .tab-header > div{
     width:50%;
     float: left;
+    text-align: center;
+    background: #ddd;
+    color: #555;
+    cursor: pointer;
+}
+
+.tabs .tab-header .admindiv{
+    width:100%;
     text-align: center;
     background: #ddd;
     color: #555;
