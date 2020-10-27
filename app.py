@@ -18,5 +18,9 @@ def admin_login():
 def sell_books():
     return render_template('sellbooks.html')
 
+@app.route('/edit_profile')
+def edit_profile():
+    return render_template('edit_profile.html')
+
 if __name__ == '__main__':
    app.run(debug=True)
