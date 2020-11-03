@@ -38,20 +38,22 @@
           <div class="collapse navbar-collapse mr-2" id="navbarToggler" style="font-size:large;">
             <ul class="navbar-nav pr-5 ml-auto">
               <li class="nav-item">
-                <a class="nav-link pl-3" href="/">Buy Books</a>
+                <a id="buybooks" class="nav-link pl-3" onclick="active('buybooks')" href="/">Buy Books</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link pl-3 active" href="/sell_books">Sell Books</a>
+                <a id="sellbooks" class="nav-link pl-3" href="/sell_books" onclick="active('sellbooks')">Sell Books</a>
               </li>
 
 
               <li class="nav-item dropdown">
                 <a
+                  id='profile'
                   class="nav-link pl-3 dropdown-toggle"
                   data-toggle="dropdown"
                   role="button"
                   href="#"
+                  onclick="active('profile')"
                   >Hello,</a
                 >
                 <div class="dropdown-menu">
@@ -79,7 +81,21 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    {% block scripts %} {% endblock %}
+    {% block scripts %}
+    <script>
+      var navlist = ['buybooks', 'sellbooks','profile'];
+      function active(idtoActive){
+        for(id in navlist){
+          var x=document.getElementById(id);
+          if(id==idtoActive){
+            x.classList.add('active');
+          }
+          else
+            x.classList.remove('active');
+        }
+    }
+    </script>
+    {% endblock %}
     </body>
     
     </html>

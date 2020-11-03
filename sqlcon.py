@@ -5,6 +5,6 @@ def connect():
         host="localhost",
         user="root",
         passwd="",
-        database="flask"
+        database="bookmart"
         )
     return db
