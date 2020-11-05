@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,session
 from sqlcon import connect
 
 app = Flask(__name__)
@@ -8,11 +8,17 @@ conn = connect()
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    if 'id' in session:
+        return render_template('index.html',name=session['name'])
+    else:
+        return redirect(url_for('login'))    
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if 'id' in session:
+        return redirect(url_for('home')) 
+    else:    
+        return render_template('login.html')
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
@@ -49,8 +55,17 @@ def login_validation():
     cursor.execute(login)
     users = cursor.fetchall()
     if len(users) > 0:
+        session['id']=users[0][0]
+        session['name']=users[0][1] 
         return redirect(url_for('home'))
+    else:
+        return redirect(url_for('login'))
 
+@app.route('/logout',methods=['GET','POST'])
+def logout():
+    session.pop('id')
+    session.pop('name')
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
    app.run(debug=True)
