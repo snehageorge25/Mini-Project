@@ -4,19 +4,9 @@ background: -webkit-linear-gradient(to right, #5F0A87,#A4508B);
 background: linear-gradient(to right,#5F0A87,#A4508B);  */
 
 background: paleturquoise;
-
-/* background-image: url('/images/bg.png'); */
 }
 
-/* nav h1{
-    
-    color: white;
-} */
-
-
-div p{
-    font-weight:bolder;
-}
+/* form start  */
 
 .Sform{
     margin-top: 2rem;
@@ -43,6 +33,8 @@ div p{
 .m-100{
     margin-top:100px;
 }
+
+/* form ends  */
 
 /* tabs for signup and login */
 .tabs{
@@ -95,3 +87,13 @@ div p{
 .tabs .tab-content > div{
     display: none ;
 }
+
+/* tabs end  */
+
+/* profile base begins */
+
+.profile-section{
+    position: fixed;
+}
+
+/* profile base ends  */

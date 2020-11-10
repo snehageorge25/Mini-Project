@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4 border-right border-dark" style="height:80vh">
+            <div class="profile-section">
+                <img src="../static/images/emptyprofile.jpg" class="img-responsive rounded-circle" style="max-width: 200px; height: auto;">
+                <p> This is my name </p>
+                This is my email
+                <hr>
+                <a href="/bought_books">Bought Books &rArr;</a>
+                <hr>
+                <a href="">Sold Books &rArr;</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

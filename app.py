@@ -9,7 +9,11 @@ conn = connect()
 @app.route('/')
 def home():
     if 'id' in session:
-        return render_template('index.html',name=session['name'])
+        books = f'SELECT * FROM `books` WHERE 1'
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(books)
+        all_books = cursor.fetchall()
+        return render_template('index.html',name=session['name'], books=all_books)
     else:
         return redirect(url_for('login'))    
 
@@ -28,18 +32,24 @@ def admin_login():
 def sell_books():
     return render_template('sellbooks.html')
 
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
 @app.route('/edit_profile')
 def edit_profile():
     return render_template('edit_profile.html')
+
+@app.route('/bought_books')
+def bought_books():
+    return render_template('boughtbooks.html')
 
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
     name = request.form.get("n_name")
     email = request.form.get("n_email")
     password = request.form.get("n_password")
-    print(request.form)
     new_user = f'INSERT INTO `users`(`name`, `email`, `password`) VALUES ("{name}", "{email}", "{password}")'
-    print(new_user)
     cursor = conn.cursor()
     cursor.execute(new_user)
     conn.commit()
@@ -61,11 +71,27 @@ def login_validation():
     else:
         return redirect(url_for('login'))
 
-@app.route('/logout',methods=['GET','POST'])
+@app.route('/logout', methods=['GET','POST'])
 def logout():
     session.pop('id')
     session.pop('name')
     return redirect(url_for('login'))
+
+
+@app.route('/new_book', methods=['GET','POST'])
+def new_book():
+    book_name = request.form.get("BookName")
+    book_author = request.form.get("AuthorName")
+    publication = request.form.get("Publication")
+    book_edition = request.form.get("Edition")
+    book_oprice = request.form.get("Price")
+    new_book = f'INSERT INTO `books`(`book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
+    cursor = conn.cursor()
+    cursor.execute(new_book)
+    conn.commit()
+    return redirect(url_for('sell_books'))
+
+
 
 if __name__ == '__main__':
    app.run(debug=True)

@@ -1,2 +1,23 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
+
+{% block body %}
+{% for book in books %}
+<div class="container">
+    <div\ class="row my-3">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="https://source.unsplash.com/1600x900/?textbook" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{book['book_name']}}</h5>
+              <p class="card-text">
+                  {{book['book_author']}} <br>
+                  {{book['publication']}}
+              </p>
+              <a href="#" class="btn btn-primary">VIEW</a>
+            </div>
+          </div>
+    </div>
+
+</div>
+{% endfor %}
+{% endblock %}
