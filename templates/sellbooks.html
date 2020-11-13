@@ -91,12 +91,13 @@
             <div class="form-group-1">
               <label for="">Book Image:</label>
               <input
-                type="file"
+                type="file" multiple
                 id="Book Image"
                 accept="image/*"
                 name="Book Image"
               />
             </div>
+            <p>To select multiple files, hold down the CTRL or SHIFT key while selecting.</p>
             <button type="submit" class="btn btn-success m-3 float-left">
               Submit
             </button>
@@ -104,5 +105,5 @@
         </div>
       </div>
     </div>
-
+    
     {% endblock %}

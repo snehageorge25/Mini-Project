@@ -2,21 +2,39 @@
 {% block title %} Home {% endblock %}
 
 {% block body %}
+
+<div class="container">
+  <br>
+      {% with messages=get_flashed_messages(with_categories=true)%}
+      {% if messages %}
+      {% for category,message in messages%}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        <span>{{message}}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+</div>
+
+
 {% for book in books %}
 <div class="container">
-    <div\ class="row my-3">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://source.unsplash.com/1600x900/?textbook" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{book['book_name']}}</h5>
-              <p class="card-text">
-                  {{book['book_author']}} <br>
-                  {{book['publication']}}
-              </p>
-              <a href="#" class="btn btn-primary">VIEW</a>
-            </div>
-          </div>
+  <div\ class="row my-3">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="https://source.unsplash.com/1600x900/?textbook" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{book['book_name']}}</h5>
+        <p class="card-text">
+          {{book['book_author']}} <br>
+          {{book['publication']}}
+        </p>
+        <a href="#" class="btn btn-primary">VIEW</a>
+      </div>
     </div>
+</div>
 
 </div>
 {% endfor %}

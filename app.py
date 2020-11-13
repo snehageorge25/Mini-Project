@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for,session,flash
 from sqlcon import connect
 
 app = Flask(__name__)
@@ -9,6 +9,7 @@ conn = connect()
 @app.route('/')
 def home():
     if 'id' in session:
+        flash('Logged in Successfully!','success')
         books = f'SELECT * FROM `books` WHERE 1'
         cursor = conn.cursor(dictionary=True)
         cursor.execute(books)
@@ -21,7 +22,7 @@ def home():
 def login():
     if 'id' in session:
         return redirect(url_for('home')) 
-    else:    
+    else:   
         return render_template('login.html')
 
 @app.route('/admin_login', methods=['GET', 'POST'])
