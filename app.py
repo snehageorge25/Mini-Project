@@ -70,10 +70,12 @@ def login_validation():
         session['name']=users[0][1] 
         return redirect(url_for('home'))
     else:
+        flash('Email address and Password did not match.','danger')
         return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET','POST'])
 def logout():
+    flash('Logged out Successfully!','warning')
     session.pop('id')
     session.pop('name')
     return redirect(url_for('login'))
