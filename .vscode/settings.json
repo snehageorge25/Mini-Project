@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "C:\\Users\\Ulhas Pathade\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+=======
+    "python.pythonPath": "C:\\Users\\itsme\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+>>>>>>> b7824480cc2221561aba10bac8676f46d5cabb2d
     "python.linting.enabled": true
 }

@@ -6,7 +6,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <!-- CSS Personalized -->
-  <link rel="stylesheet" href="../static/styles/styles.css">
+  <link rel="stylesheet" href="url_for('static', filename='styles/styles.css')">
 
   <title>Document</title>
 </head>
@@ -18,7 +18,7 @@
             <h1 class="pl-0 name col-8 col-xl-4 text-wrap text-white">BOOKMART</h1>
             <ul class="navbar-nav pr-5 ml-auto">
             <li class="nav-item">
-              <a class="nav-link pl-3" href="/login"  style="font-size:large;">User Login</a>
+              <a class="nav-link pl-3" href="url_for('login')"  style="font-size:large;">User Login</a>
             </li>  
           </ul>
           </nav>
@@ -35,7 +35,7 @@
                         <div class="tab-content">
                           
                           <div class="tab-body p-3 text-dark active">
-                            <form method="POST" action="/login_validation">
+                            <form method="POST" action="{{ url_for('login_validation') }}">
                               <div class="form-group">
                                 <label for="Email">Email address</label>
                                 <input type="email" class="form-control" id="Email" name="email">

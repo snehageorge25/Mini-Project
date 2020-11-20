@@ -14,7 +14,7 @@ def home():
         cursor = conn.cursor(dictionary=True)
         cursor.execute(books)
         all_books = cursor.fetchall()
-        return render_template('index.html',name=session['name'], books=all_books)
+        return render_template('index.html', books=all_books)
     else:
         return redirect(url_for('login'))    
 
@@ -45,6 +45,10 @@ def edit_profile():
 def bought_books():
     return render_template('boughtbooks.html')
 
+@app.route('/sold_books')
+def sold_books():
+    return render_template('soldbooks.html')
+
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
     name = request.form.get("n_name")
@@ -70,10 +74,12 @@ def login_validation():
         session['name']=users[0][1] 
         return redirect(url_for('home'))
     else:
+        flash('Email address and Password did not match.','danger')
         return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET','POST'])
 def logout():
+    flash('Logged out Successfully!','warning')
     session.pop('id')
     session.pop('name')
     return redirect(url_for('login'))
