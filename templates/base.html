@@ -11,7 +11,7 @@
       crossorigin="anonymous"
     />
     <!-- CSS Personalized -->
-    <link rel="stylesheet" href="../static/styles/styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}" />
     {% block styles %}{% endblock %}
     <!-- font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -38,11 +38,11 @@
           <div class="collapse navbar-collapse mr-2" id="navbarToggler" style="font-size:large;">
             <ul class="navbar-nav pr-5 ml-auto">
               <li class="nav-item">
-                <a id="buybooks" class="nav-link pl-3" onclick="active('buybooks')" href="/">Buy Books</a>
+                <a id="buybooks" class="nav-link pl-3" onclick="active('buybooks')" href="{{ url_for('home') }}">Buy Books</a>
               </li>
 
               <li class="nav-item">
-                <a id="sellbooks" class="nav-link pl-3" href="/sell_books" onclick="active('sellbooks')">Sell Books</a>
+                <a id="sellbooks" class="nav-link pl-3" href="{{ url_for('sell_books') }}" onclick="active('sellbooks')">Sell Books</a>
               </li>
 
 
