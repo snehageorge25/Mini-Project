@@ -49,6 +49,14 @@ def bought_books():
 def sold_books():
     return render_template('soldbooks.html')
 
+@app.route('/view/<book_id>/')
+def view(book_id):
+    book = f'SELECT * FROM `books` WHERE book_id={book_id}'
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(book)
+    curr_book = cursor.fetchone()
+    return render_template('view.html', book=curr_book)
+
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
     name = request.form.get("n_name")

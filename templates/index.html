@@ -26,12 +26,12 @@
     <div class="card" style="width: 18rem;">
       <img class="card-img-top" src="https://source.unsplash.com/1600x900/?textbook" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{book['book_name']}}</h5>
+        <h5 class="card-title">{{ book['book_name'] }}</h5>
         <p class="card-text">
-          {{book['book_author']}} <br>
-          {{book['publication']}}
+          {{ book['book_author'] }} <br>
+          {{ book['publication'] }}
         </p>
-        <a href="/view" class="btn btn-primary">VIEW</a>
+        <a href="/view/{{ book['book_id'] }}" class="btn btn-primary">VIEW</a>
       </div>
     </div>
   </div>
