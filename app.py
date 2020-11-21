@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for,session,flash
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, SellBooksForm
 from sqlcon import connect
 
 app = Flask(__name__)
@@ -36,7 +36,8 @@ def admin_login():
 
 @app.route('/sell_books')
 def sell_books():
-    return render_template('sellbooks.html')
+    form = SellBooksForm()
+    return render_template('sellbooks.html', book_form=form)
 
 @app.route('/profile')
 def profile():

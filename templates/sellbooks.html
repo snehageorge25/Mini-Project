@@ -8,84 +8,30 @@
           <h1>Book Registeration Form</h1>
           <p>Fill out the details carefully.</p>
           <form class="form-horizontal" action="{{ url_for('new_book') }}" method="POST">
+
             <div class="form-group-1">
-              <label class="control-label col-xs-2" for="BookName"
-                >Book Name:</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="BookName"
-                  required
-                  placeholder="Enter Book Name"
-                  name="BookName"
-                />
-              </div>
+              {{ book_form.book_name.label(class="form-control-label") }}
+              {{ book_form.book_name(class="form-control col-sm-10") }}
             </div>
 
             <div class="form-group-1">
-              <label class="control-label col-xs-2" for="AuthorName"
-                >Author Name:</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="AuthorName"
-                  required
-                  placeholder="Enter Author Name"
-                  name="AuthorName"
-                />
-              </div>
+              {{ book_form.author_name.label(class="form-control-label") }}
+              {{ book_form.author_name(class="form-control col-sm-10") }}
             </div>
 
             <div class="form-group-1">
-              <label for="Publication">Publication Name:</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Publication"
-                  placeholder="Enter Publication Name"
-                  name="Publication"
-                />
-              </div>
+              {{ book_form.publication_name.label(class="form-control-label") }}
+              {{ book_form.publication_name(class="form-control col-sm-10") }}
             </div>
 
             <div class="form-group-1">
-              <label class="control-label col-xs-2" for="Edition"
-                >Edition:</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  min="0"
-                  max="10000"
-                  class="form-control"
-                  id="Edition"
-                  required
-                  placeholder="Enter Year of Edition"
-                  name="Edition"
-                />
-              </div>
+              {{ book_form.edition.label(class="form-control-label") }}
+              {{ book_form.edition(class="form-control col-sm-10") }}
             </div>
 
             <div class="form-group-1">
-              <label class="control-label col-xs-2" for=" Price"
-                >Price:</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="number"
-                  min="0"
-                  max="10000"
-                  class="form-control"
-                  id="Price"
-                  placeholder="Enter  Price"
-                  name="Price"
-                />
-              </div>
+              {{ book_form.price.label(class="form-control-label") }}
+              {{ book_form.price(class="form-control col-sm-10") }} 
             </div>
 
             <div class="form-group-1">
