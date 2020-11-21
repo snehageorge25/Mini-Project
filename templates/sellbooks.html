@@ -7,7 +7,7 @@
         <div class="Sform col-sm-10 col-md-10 col-lg-8 m-auto">
           <h1>Book Registeration Form</h1>
           <p>Fill out the details carefully.</p>
-          <form class="form-horizontal" action="/new_book" method="POST">
+          <form class="form-horizontal" action="{{ url_for('new_book') }}" method="POST">
             <div class="form-group-1">
               <label class="control-label col-xs-2" for="BookName"
                 >Book Name:</label

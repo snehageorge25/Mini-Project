@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for,session,flash
+from forms import RegistrationForm, LoginForm
 from sqlcon import connect
 
 app = Flask(__name__)
@@ -18,16 +19,20 @@ def home():
     else:
         return redirect(url_for('login'))    
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = RegistrationForm()
+    return render_template('signup.html', form = form)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if 'id' in session:
-        return redirect(url_for('home')) 
-    else:   
-        return render_template('login.html')
+    form = LoginForm()
+    return render_template('login.html', form = form)
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
-    return render_template('adminlogin.html')
+    form = LoginForm()
+    return render_template('adminlogin.html', form = form)
 
 @app.route('/sell_books')
 def sell_books():

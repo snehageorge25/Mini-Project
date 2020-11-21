@@ -6,9 +6,9 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <!-- CSS Personalized -->
-  <link rel="stylesheet" href="url_for('static', filename='styles/styles.css')">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
 
-  <title>Document</title>
+  <title>Admin login</title>
 </head>
 <body>
   <header>
@@ -18,39 +18,33 @@
             <h1 class="pl-0 name col-8 col-xl-4 text-wrap text-white">BOOKMART</h1>
             <ul class="navbar-nav pr-5 ml-auto">
             <li class="nav-item">
-              <a class="nav-link pl-3" href="url_for('login')"  style="font-size:large;">User Login</a>
+              <a class="nav-link pl-3" href="{{ url_for('login') }}"  style="font-size:large;">User Login</a>
             </li>  
           </ul>
           </nav>
     </div>
   </header>
-    <div class="container" style="display: flex; justify-content: center; align-items: center; height: 90vh;">
-        <div class="row">
-          <div class="col-12">
-                <div>
-                    <div class="tabs">
-                        <div class="tab-header">
-                          <div class="admindiv">Admin Login</div>
-                        </div>
-                        <div class="tab-content">
-                          
-                          <div class="tab-body p-3 text-dark active">
-                            <form method="POST" action="{{ url_for('login_validation') }}">
-                              <div class="form-group">
-                                <label for="Email">Email address</label>
-                                <input type="email" class="form-control" id="Email" name="email">
-                              </div>
-                              <div class="form-group">
-                                <label for="Password">Password</label>
-                                <input type="password" class="form-control" id="Password" name="password">
-                              </div>
-                              <input type="submit" name="login" id="" class="btn btn-primary w-100 mt-2" value="LOGIN!">
-                            </form>
-                          </div>
-                        </div>
-                </div>
-            </div>
+    <div class="container" style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+        <div class="col-12 col-md-4 m-100 p-2 bg-light">
+          <div class="text-center font-weight-bold text-monospace h5 my-1"> <legend>Admin Login</legend> </div>
+          <div class="px-3 pt-3 text-dark">
+            <!-- <form method="POST" action="/new_user"> -->
+            <form method="POST" action="/login_validation">
+            {{ form.hidden_tag() }}
+              <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+              <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control") }}
+              </div>
+              <div class="form-group">
+                {{ form.submit(class="btn btn-primary w-100 mt-2") }}
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
   
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
