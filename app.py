@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for,session,flash
-from forms import RegistrationForm, LoginForm, SellBooksForm
+from forms import RegistrationForm, LoginForm, SellBooksForm, EditProfileForm
 from sqlcon import connect
 
 app = Flask(__name__)
@@ -45,7 +45,8 @@ def profile():
 
 @app.route('/edit_profile')
 def edit_profile():
-    return render_template('edit_profile.html')
+    edit_form = EditProfileForm()
+    return render_template('edit_profile.html',edit_form=edit_form)
 
 @app.route('/bought_books')
 def bought_books():
