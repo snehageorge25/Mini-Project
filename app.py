@@ -70,7 +70,7 @@ def new_user():
     name = request.form.get("name")
     email = request.form.get("email")
     password = request.form.get("password").encode('utf-8')
-    hashed=bcrypt.hashpw(password,bcrypt.gensalt())
+    hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
     new_user = f'INSERT INTO `users`(`name`, `email`, `pw`) VALUES ("{name}", "{email}", "{hashed}")'
     cursor = conn.cursor()
     cursor.execute(new_user)
@@ -88,7 +88,7 @@ def login_validation():
     user = cursor.fetchall()
     print(user)
     if len(user) > 0:
-        if bcrypt.checkpw(password,user[0][3]):
+        if bcrypt.checkpw(password,user[0][3].encode('utf-8')):
             session['id']=user[0][0]
             session['name']=user[0][1] 
             return redirect(url_for('home'))
