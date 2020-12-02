@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for,session,fla
 from forms import RegistrationForm, LoginForm, SellBooksForm, EditProfileForm
 from sqlcon import connect
 import bcrypt
+from datetime import date
 
 app = Flask(__name__)
 app.secret_key = "bookmart"
@@ -71,7 +72,8 @@ def new_user():
     email = request.form.get("email")
     password = request.form.get("password").encode('utf-8')
     hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
-    new_user = f'INSERT INTO `users`(`name`, `email`, `pw`) VALUES ("{name}", "{email}", "{hashed}")'
+    date_joined = str(date.today())
+    new_user = f'INSERT INTO `users`(`name`, `email`, `pw`,`date_joined`) VALUES ("{name}", "{email}", "{hashed}","{date_joined}")'
     cursor = conn.cursor()
     cursor.execute(new_user)
     conn.commit()
