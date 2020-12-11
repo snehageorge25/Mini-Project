@@ -6,35 +6,45 @@
 <div class="container">
   <br>
       {% with messages=get_flashed_messages(with_categories=true)%}
-      {% if messages %}
-      {% for category,message in messages %}
-      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-        <span>{{message}}</span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %}
-      {% endif %}
+        {% if messages %}
+          {% for category,message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <span>{{message}}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %}
+        {% endif %}
       {% endwith %}
 </div>
 
 
-{% for book in books %}
 <div class="container">
-  <div\ class="row my-3">
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="https://source.unsplash.com/1600x900/?textbook" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{ book['book_name'] }}</h5>
-        <p class="card-text">
-          {{ book['book_author'] }} <br>
-          {{ book['publication'] }}
-        </p>
-        <a href="/view/{{ book['book_id'] }}" class="btn btn-primary">VIEW</a>
+  <div class="row my-3">
+    <div class="col-lg-3 col-md-4 border-right border-dark" style="height:80vh">
+      Branch <br>
+      <a href="#">Computer</a>
+    </div>
+
+    <div class="col-lg-9 col-md-8">
+      <div class="row pl-2">
+        {% for book in books %}
+        <div class="card m-2" style="width: 15rem;">
+          <img class="card-img-top" src="https://source.unsplash.com/1600x900/?book" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ book['book_name'] }}</h5>
+            <p class="card-text">
+              {{ book['book_author'] }} <br>
+              {{ book['publication'] }}
+            </p>
+            <a href="/view/{{ book['book_id'] }}" class="btn btn-primary">VIEW</a>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
+    
   </div>
 </div>
-{% endfor %}
 {% endblock %}
