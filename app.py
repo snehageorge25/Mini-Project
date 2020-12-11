@@ -30,6 +30,8 @@ def signup():
 def login():
     form = LoginForm()
     return render_template('login.html', form = form)
+    
+    
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
@@ -77,6 +79,7 @@ def new_user():
     cursor = conn.cursor()
     cursor.execute(new_user)
     conn.commit()
+    flash(f'Signed up Successfully!Proceed to Login.','success')
     return redirect(url_for('login'))
 
 
