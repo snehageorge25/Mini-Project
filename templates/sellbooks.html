@@ -11,7 +11,16 @@
 
             <div class="form-group-1">
               {{ book_form.book_name.label(class="form-control-label") }}
+              {% if book_form.book_name.errors %}
+              {{ book_form.book_name(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.book_name.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
               {{ book_form.book_name(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <div class="form-group-1">

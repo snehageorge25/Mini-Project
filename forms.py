@@ -1,36 +1,36 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField,IntegerField,RadioField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import DataRequired, Length, Email, EqualTo,NumberRange
+from wtforms.validators import InputRequired, Length, Email, EqualTo,NumberRange
 
 class RegistrationForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    # confirm_password = PasswordField('n_confirm_password', validators=[DataRequired(), EqualTo('password')])
+    name = StringField('Name', validators=[InputRequired(message="Name Required"), Length(min=2, max=20)])
+    email = StringField('Email', validators=[InputRequired(), Email()])
+    password = PasswordField('Password', validators=[InputRequired()])
+    # confirm_password = PasswordField('n_confirm_password', validators=[InputRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Email', validators=[InputRequired(), Email(message="Email is required!")])
+    password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField('Login')
 
 class SellBooksForm(FlaskForm):
-    book_name = StringField('Book Name:', validators=[DataRequired(), Length(min=2, max=20)])
-    author_name = StringField('Author Name:', validators=[DataRequired(), Length(min=2, max=20)])
-    publication_name = StringField('Publication Name:', validators=[DataRequired(), Length(min=2, max=20)])
-    edition = IntegerField('Edition:', validators=[DataRequired(),NumberRange(min=2000, max=2020)])
-    price = IntegerField('Price:', validators=[DataRequired()])
+    book_name = StringField('Book Name:', validators=[InputRequired(), Length(min=2, max=20)])
+    author_name = StringField('Author Name:', validators=[InputRequired(), Length(min=2, max=20)])
+    publication_name = StringField('Publication Name:', validators=[InputRequired(), Length(min=2, max=20)])
+    edition = IntegerField('Edition:', validators=[InputRequired(),NumberRange(min=2000, max=2020)])
+    price = IntegerField('Price:', validators=[InputRequired()])
     
 class EditProfileForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    addressline1 = StringField('Address Line 1',validators=[DataRequired(), Length(min=2)])
-    addressline2 = StringField('Address Line 2',validators=[DataRequired(), Length(min=2)])
-    mobileno = StringField("Mobile No.", validators=[DataRequired(), Length(10)]) 
-    profession = StringField('Profession',validators=[DataRequired(), Length(min=2)])
+    name = StringField('Name', validators=[InputRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[InputRequired(), Email()])
+    addressline1 = StringField('Address Line 1',validators=[InputRequired(), Length(min=2)])
+    addressline2 = StringField('Address Line 2',validators=[InputRequired(), Length(min=2)])
+    mobileno = StringField("Mobile No.", validators=[InputRequired(), Length(10)]) 
+    profession = StringField('Profession',validators=[InputRequired(), Length(min=2)])
     # dateofbirth = DateField("Date of Birth", validators=[DateRange(date(1950,1,1), date(2020,12,30))])
-    dateofbirth = DateField("Date of Birth", validators=[DataRequired()])
+    dateofbirth = DateField("Date of Birth", validators=[InputRequired()])
     gender = RadioField('Gender', choices=[('male','Male'),('female','Female'),('other','Other')])
     submit = SubmitField('Submit')

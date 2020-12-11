@@ -88,7 +88,6 @@ def login_validation():
     cursor = conn.cursor()
     cursor.execute(login)
     user = cursor.fetchall()
-    print(user)
     if len(user) > 0:
         if bcrypt.checkpw(password,user[0][3].encode('utf-8')):
             session['id']=user[0][0]
