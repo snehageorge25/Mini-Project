@@ -24,6 +24,18 @@ def home():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = RegistrationForm()
+    if request.method == 'POST' and form.validate():
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password").encode('utf-8')
+        hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
+        date_joined = str(date.today())
+        new_user = f'INSERT INTO `users`(`name`, `email`, `pw`,`date_joined`) VALUES ("{name}", "{email}", "{hashed}","{date_joined}")'
+        cursor = conn.cursor()
+        cursor.execute(new_user)
+        conn.commit()
+        flash('Signed up Successfully! Proceed to Login.','success')
+        return redirect(url_for('login'))
     return render_template('signup.html', form = form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -68,19 +80,19 @@ def view(book_id):
     curr_book = cursor.fetchone()
     return render_template('view.html', book=curr_book)
 
-@app.route('/new_user', methods=['GET', 'POST'])
-def new_user():
-    name = request.form.get("name")
-    email = request.form.get("email")
-    password = request.form.get("password").encode('utf-8')
-    hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
-    date_joined = str(date.today())
-    new_user = f'INSERT INTO `users`(`name`, `email`, `pw`,`date_joined`) VALUES ("{name}", "{email}", "{hashed}","{date_joined}")'
-    cursor = conn.cursor()
-    cursor.execute(new_user)
-    conn.commit()
-    flash(f'Signed up Successfully!Proceed to Login.','success')
-    return redirect(url_for('login'))
+# @app.route('/new_user', methods=['GET', 'POST'])
+# def new_user():
+#     name = request.form.get("name")
+#     email = request.form.get("email")
+#     password = request.form.get("password").encode('utf-8')
+#     hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
+#     date_joined = str(date.today())
+#     new_user = f'INSERT INTO `users`(`name`, `email`, `pw`,`date_joined`) VALUES ("{name}", "{email}", "{hashed}","{date_joined}")'
+#     cursor = conn.cursor()
+#     cursor.execute(new_user)
+#     conn.commit()
+#     flash('Signed up Successfully! Proceed to Login.','success')
+#     return redirect(url_for('login'))
 
 
 @app.route('/login_validation', methods=['GET', 'POST'])
@@ -97,7 +109,7 @@ def login_validation():
             session['name']=user[0][1] 
             return redirect(url_for('home'))
     else:
-        flash('Email address and Password did not match.','danger')
+        flash('Email address and Password did not match','danger')
         return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET','POST'])

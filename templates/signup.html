@@ -58,7 +58,7 @@
         <div class="text-center font-weight-bold text-monospace h5 my-1"> <legend>Signup</legend> </div>
         <div class="px-3 pt-3 text-dark">
             <!-- <form method="POST" action="/new_user"> -->
-            <form  method="POST"  action="/new_user">
+            <form  method="POST"  action="">
                 {{ form.hidden_tag() }}
 
               <div class="form-group">
@@ -87,7 +87,7 @@
                       {% endfor %}
                     </div>
                   {% else %}
-                    {{ form.email(class="form-control") }}
+                  {{ form.email(class="form-control") }}
                 {% endif %}
               </div>
 

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField,IntegerField,RadioField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import InputRequired, Length, Email, EqualTo,NumberRange
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(message="Name Required"), Length(min=2, max=20)])
