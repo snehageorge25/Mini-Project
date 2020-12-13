@@ -19,22 +19,22 @@ class LoginForm(FlaskForm):
 class SellBooksForm(FlaskForm):
     book_name = StringField('Book Name:', validators=[InputRequired(), Length(min=2, max=20)])
     author_name = StringField('Author Name:', validators=[InputRequired(), Length(min=2, max=20)])
-    publication_name = StringField('Publication Name:',validators=[InputRequired(), Length(min=2, max=20)])
-    branchchoices=['Computer','Information Technology','EnTC','Mechanical','Civil','Electrical']
-    branch=SelectField('Branch Name:',choices=branchchoices,validators=[InputRequired()])
-    edition = IntegerField('Edition:', validators=[InputRequired(),NumberRange(min=2000, max=2020)])
-    ISBN=IntegerField('ISBN:',validators=[InputRequired(),Length(min=13,max=13)])
-    conditionchoices=['Fine/Like New','Near Fine','Very Good','Good','Fair','Poor']
-    book_condition=SelectField('Book Condition:',choices=conditionchoices,validators=[InputRequired()])
+    publication_name = StringField('Publication Name:', validators=[InputRequired(), Length(min=2, max=20)])
+    branchchoices = ['Computer', 'Information Technology', 'EnTC', 'Mechanical' ,'Civil', 'Electrical']
+    branch = SelectField('Branch Name:',choices=branchchoices, validators=[InputRequired()])
+    edition = IntegerField('Edition:', validators=[InputRequired(), NumberRange(min=2000, max=2020)])
+    ISBN = IntegerField('ISBN:',validators=[InputRequired(), Length(min=13,max=13)])
+    conditionchoices = ['Fine/Like New', 'Good', 'Fair', 'Poor']
+    book_condition = SelectField('Book Condition:', choices=conditionchoices, validators=[InputRequired()])
     price = IntegerField('Price:', validators=[InputRequired()])
     
 class EditProfileForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[InputRequired(), Email()])
-    addressline1 = StringField('Address Line 1',validators=[InputRequired(), Length(min=2)])
-    addressline2 = StringField('Address Line 2',validators=[InputRequired(), Length(min=2)])
+    addressline1 = StringField('Address Line 1', validators=[InputRequired(), Length(min=2)])
+    addressline2 = StringField('Address Line 2', validators=[InputRequired(), Length(min=2)])
     mobileno = StringField("Mobile No.", validators=[InputRequired(), Length(10)]) 
-    profession = StringField('Profession',validators=[InputRequired(), Length(min=2)])
+    profession = StringField('Profession', validators=[InputRequired(), Length(min=2)])
     # dateofbirth = DateField("Date of Birth", validators=[DateRange(date(1950,1,1), date(2020,12,30))])
     dateofbirth = DateField("Date of Birth", validators=[InputRequired()])
     gender = RadioField('Gender', choices=[('male','Male'),('female','Female'),('other','Other')])
