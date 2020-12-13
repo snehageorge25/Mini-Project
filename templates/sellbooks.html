@@ -25,17 +25,32 @@
 
             <div class="form-group-1">
               {{ book_form.author_name.label(class="form-control-label") }}
-              {{ book_form.author_name(class="form-control col-sm-10") }}
+              {{ book_form.author_name(class="form-control col-sm-10   ") }}
             </div>
 
             <div class="form-group-1">
               {{ book_form.publication_name.label(class="form-control-label") }}
-              {{ book_form.publication_name(class="form-control col-sm-10") }}
+              {{ book_form.publication_name(class="form-control col-sm-10" ) }}
+            </div>
+
+            <div class="form-group-1">
+              {{ book_form.branch.label(class="form-control-label") }}
+              {{ book_form.branch(class="form-control col-sm-10" ) }}
             </div>
 
             <div class="form-group-1">
               {{ book_form.edition.label(class="form-control-label") }}
               {{ book_form.edition(class="form-control col-sm-10") }}
+            </div>
+
+            <div class="form-group-1">
+              {{ book_form.ISBN.label(class="form-control-label") }}
+              {{ book_form.ISBN(class="form-control col-sm-10" ) }}
+            </div>
+
+            <div class="form-group-1">
+              {{ book_form.book_condition.label(class="form-control-label") }}
+              {{ book_form.book_condition(class="form-control col-sm-10" ) }}
             </div>
 
             <div class="form-group-1">

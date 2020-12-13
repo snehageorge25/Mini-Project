@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField,SelectField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 
@@ -19,8 +19,13 @@ class LoginForm(FlaskForm):
 class SellBooksForm(FlaskForm):
     book_name = StringField('Book Name:', validators=[InputRequired(), Length(min=2, max=20)])
     author_name = StringField('Author Name:', validators=[InputRequired(), Length(min=2, max=20)])
-    publication_name = StringField('Publication Name:', validators=[InputRequired(), Length(min=2, max=20)])
+    publication_name = StringField('Publication Name:',validators=[InputRequired(), Length(min=2, max=20)])
+    branchchoices=['Computer','Information Technology','EnTC','Mechanical','Civil','Electrical']
+    branch=SelectField('Branch Name:',choices=branchchoices,validators=[InputRequired()])
     edition = IntegerField('Edition:', validators=[InputRequired(),NumberRange(min=2000, max=2020)])
+    ISBN=IntegerField('ISBN:',validators=[InputRequired(),Length(min=13,max=13)])
+    conditionchoices=['Fine/Like New','Near Fine','Very Good','Good','Fair','Poor']
+    book_condition=SelectField('Book Condition:',choices=conditionchoices,validators=[InputRequired()])
     price = IntegerField('Price:', validators=[InputRequired()])
     
 class EditProfileForm(FlaskForm):
