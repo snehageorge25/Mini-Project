@@ -57,11 +57,24 @@ def sell_books():
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    userid = session['id']
+    user = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `id` = {userid} '
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(user)
+    user = cursor.fetchone()
+    return render_template('profile.html', user=user)
 
 @app.route('/edit_profile')
 def edit_profile():
     edit_form = EditProfileForm()
+    userid = session['id']
+    user = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `id` = {userid} '
+    cursor = conn.cursor()
+    cursor.execute(user)
+    user = cursor.fetchone()
+    if request.method == 'GET':
+        edit_form.name.data = user[1]
+        edit_form.email.data = user[2]
     return render_template('edit_profile.html', edit_form=edit_form)
 
 @app.route('/bought_books')
