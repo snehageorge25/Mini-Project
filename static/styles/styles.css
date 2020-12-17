@@ -1,15 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+:root{
+    /* --col-1: #18ca98; */
+    --col-1: #00bcd4;
+    /* --col-1: #f3ef0d; */
+}
+
 body{
     /* background: #61045f; 
 background: -webkit-linear-gradient(to right, #5F0A87,#A4508B); 
 background: linear-gradient(to right,#5F0A87,#A4508B);  */
-background: #9bfd82;
+   background: azure;
 }
 
-.nav-theme{
-    background-color: #3c1642;
-    /*background-color: #8980f5;*/ 
-    
+.w-90{
+    width:90%;
 }
+
+.navbar{
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 8px 6px -6px var(--col-1);
+    -moz-box-shadow: 0 8px 6px -6px var(--col-1);
+    box-shadow: 0 8px 6px -6px var(--col-1);
+}
+
+.category-btns{
+    background-color: #ffffff;
+    -webkit-box-shadow: -5px 5px 3px -2px var(--col-1);
+    -moz-box-shadow: -5px 5px 3px -2px var(--col-1);
+    box-shadow: -5px 5px 3px -2px var(--col-1);
+}
+
+.category-btns1, .category-btns:hover{
+    transition: 100ms;
+    background-color: var(--col-1);
+    -webkit-box-shadow: -5px 5px 3px -2px #000000;
+    -moz-box-shadow: -5px 5px 3px -2px #000000;
+    box-shadow: -5px 5px 3px -2px #000000;
+}
+
+.theme-bg{
+    border-color: var(--col-1);
+}
+
+.theme-bg:hover{
+    background-color: var(--col-1);
+}
+
+.navbar-dark .navbar-toggler {
+    border:0;
+    font-size: 1.20rem;
+}
+
+
+.name{
+    /* font-family: 'Josefin Slab', serif; */
+    color: var(--col-1);
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+}
+
 /* form start  */
 
 .Sform{
@@ -38,4 +89,24 @@ background: #9bfd82;
     margin-top:100px;
 }
 
+.form-control{
+    border-color: var(--col-1);
+}
+
 /* form ends  */
+
+/* footer begins */
+
+.full-footer{
+    background: #343a40;
+}
+
+.full-footer h5{
+    color: whitesmoke;
+}
+
+.color-silver{
+    color:silver;
+}
+
+/* footer ends *

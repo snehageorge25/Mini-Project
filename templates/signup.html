@@ -17,8 +17,8 @@
   <header>
     <div id="header">
       <!-- Container starts -->
-      <nav class="navbar navbar-dark bg-dark  navbar-expand-xl pr-1">
-        <h1 class="pl-0 name col-8 col-xl-4 text-wrap text-white">UseMyBook</h1>
+      <nav class="navbar navbar-dark bg-dark navbar-expand-lg pr-1">
+        <h1 class="pl-0 name col-8 col-xl-4 text-wrap name">UseMyBook</h1>
         <ul class="navbar-nav pr-5 ml-auto">
           <li class="nav-item">
             <a class="nav-link pl-3" style="font-size:large;" href="{{ url_for('admin_login') }}">Admin Login</a>
@@ -54,9 +54,11 @@
           Come be a part of our community.
         </p>
       </div>
-      <div class="col-12 col-md-4 m-100 p-2 bg-light">
-        <div class="text-center font-weight-bold text-monospace h5 my-1"> <legend>Signup</legend> </div>
-        <div class="px-3 pt-3 text-dark">
+      <div class="col-12 col-md-4 m-100 p-2 bg-dark">
+        <div class="text-center font-weight-bold text-monospace h5 my-1 text-white">
+          <legend>Signup</legend>
+        </div>
+        <div class="px-3 pt-3 text-white">
             <form  method="POST"  action="">
                 {{ form.hidden_tag() }}
 
@@ -104,12 +106,12 @@
                 {% endif %}
               </div>
 
-              <div class="form-group">
-                {{ form.submit(class="btn btn-primary w-100 mt-2") }}
+              <div class="form-group text-center">
+                {{ form.submit(class="btn category-btns1 w-100 mt-2") }}
               </div>
             </form>
             <div class="border-top pt-3">
-                <small class="text-muted">
+                <small class="text-white">
                   Already have an Account? <a class="ml-2" href="{{ url_for('login') }}">Login here</a>
                 </small>
               </div>

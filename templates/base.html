@@ -20,11 +20,8 @@
   <body>
     <header>
       <div id="header">
-        <!-- Container starts -->
-        <nav class="navbar navbar-dark navbar-expand-xl pr-1 nav-theme">
-          <a class="navbar-brand text-bold" href="#" ><h1 class="name col-8 col-xl-4 text-wrap pl-0">UseMyBook</h1></a>
-          
-
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg pr-1">
+          <a class="navbar-brand text-bold" href="/" ><h1 class="name col-8 col-xl-4 text-wrap pl-1">UseMyBook</h1></a>
 
           <button
             data-toggle="collapse"
@@ -36,25 +33,40 @@
           </button>
 
           <div class="collapse navbar-collapse mr-2" id="navbarToggler" style="font-size:large;">
+            <ul class="navbar-nav pr-5 mr-auto">
+              <li class="nav-item">
+                <a id="buybooks" class="nav-link pl-3" href="{{ url_for('home') }}">Buy Books</a>
+              </li>
+
+              <li class="nav-item">
+                <a id="sellbooks" class="nav-link pl-3" href="{{ url_for('sell_books') }}">Sell Books</a>
+              </li>
+            </ul>
+
             <ul class="navbar-nav pr-5 ml-auto">
-              <li class="nav-item">
-                <a id="buybooks" class="nav-link pl-3" onclick="active('buybooks')" href="{{ url_for('home') }}">Buy Books</a>
-              </li>
-
-              <li class="nav-item">
-                <a id="sellbooks" class="nav-link pl-3" href="{{ url_for('sell_books') }}" onclick="active('sellbooks')">Sell Books</a>
-              </li>
-
-
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn my-sm-0 collapse navbar-collapse" type="submit"><i class="fa fa-search" style="font-size:24px;color:white"></i></button>
+              </form>
+  
               <li class="nav-item dropdown">
                 <a
                   id='profile'
-                  class="nav-link pl-3 dropdown-toggle"
+                  class="nav-link navbar-toggler pl-3 py-2 dropdown-toggle"
                   data-toggle="dropdown"
                   role="button"
                   href="#"
                   onclick="active('profile')"
                   >More</a
+                >
+                <a
+                  id='profile'
+                  class="nav-link pl-3 collapse navbar-collapse dropdown-toggle border-dark"
+                  data-toggle="dropdown"
+                  role="button"
+                  href="#"
+                  onclick="active('profile')"
+                  ><i class="fa fa-user" style="font-size:24px;color:white"></i></a
                 >
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="{{ url_for('profile') }}">My Profile</a>
@@ -66,8 +78,11 @@
               </li>
 
               <li class="nav-item text-white">
+                <a class="nav-link navbar-toggler pl-3 pt-2" href="#">
+                  Cart
+                </a>
                 <a class="nav-link pl-3" href="#">
-                  <i class="fa fa-shopping-cart " style="font-size:24px;color:white"></i>
+                  <i class="fa fa-shopping-cart collapse navbar-collapse" style="font-size:24px;color:white"></i>
                 </a>
               </li>
 
@@ -80,21 +95,22 @@
     <footer>
 
 
-    <footer class="full-footer" style="background: #343a40;" >
+    <footer class="full-footer">
       <div class="container top-footer p-md-1 p-1">
         <div class="row">
           <div class="col-md-3 pl-4 pr-4">
-              <h5 style="color: whitesmoke;">Connect with us on:</h5>
-              <a style="color:silver;" href="#"><i class="fa fa-2x fa-facebook-square "></i></a>
-              <a style="color:silver;" href="#"><i class="fa fa-2x fa fa-instagram"></i></a>
-              <a style="color:silver;" href="#"><i class="fa fa-2x fa fa-google-plus"></i></a> 
+              <h5>Connect with us on:</h5>
+              <a class="color-silver" href="#"><i class="fa fa-2x fa-facebook-square "></i></a>
+              <a class="color-silver pl-2 pr-2" href="#"><i class="fa fa-2x fa fa-instagram"></i></a>
+              <a class="color-silver pr-2" href="#"><i class="fa fa-2x fa fa-google-plus"></i></a>
+              <a class="color-silver" href="#"><i class="fa fa-2x fa fa-twitter"></i></a>
            </div>
            <div class="col-md-6"></div>
            <div class="col-md-3 pl-4 pr-4">
-            <h5 style="color: whitesmoke;">Contact Us</h5>
-            <a style="color: silver;" href="tel:919876543210"><i class="fa  fa-phone-square"></i> +(91)
+            <h5>Contact Us</h5>
+            <a class="color-silver" href="tel:919876543210"><i class="fa  fa-phone-square"></i> +(91)
                 9876543210</a><br>
-            <a style="color:silver;" href="mail to:abc@gmail.com"><i class="fa fa-envelope-square"></i>
+            <a class="color-silver" href="mail to:abc@gmail.com"><i class="fa fa-envelope-square"></i>
                 abc@gmail.com</a><br>
           </div>
         </div>
