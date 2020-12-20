@@ -43,13 +43,6 @@ def login():
     form = LoginForm()
     return render_template('login.html', form = form)
     
-    
-
-@app.route('/admin_login', methods=['GET', 'POST'])
-def admin_login():
-    form = LoginForm()
-    return render_template('adminlogin.html', form = form)
-
 @app.route('/sell_books')
 def sell_books():
     form = SellBooksForm()
