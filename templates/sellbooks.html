@@ -7,12 +7,12 @@
         <div class="Sform col-sm-10 col-md-10 col-lg-8 m-auto">
           <h1>Book Registeration Form</h1>
           <p>Fill out the details carefully.</p>
-          <form class="form-horizontal" action="{{ url_for('new_book') }}" method="POST">
-
+          <form class="form-horizontal" action="" method="POST">
+            {{ book_form.hidden_tag() }}
             <div class="form-group-1">
               {{ book_form.book_name.label(class="form-control-label") }}
               {% if book_form.book_name.errors %}
-              {{ book_form.book_name(class="form-control is-invalid") }}
+              {{ book_form.book_name(class="form-control col-sm-10 is-invalid") }}
               <div class="invalid-feedback">
                 {% for error in book_form.book_name.errors %}
                 <span>{{error}}</span>
@@ -25,37 +25,100 @@
 
             <div class="form-group-1">
               {{ book_form.author_name.label(class="form-control-label") }}
+              {% if book_form.author_name.errors %}
+              {{ book_form.author_name(class="form-control col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.author_name.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
               {{ book_form.author_name(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <div class="form-group-1">
               {{ book_form.publication_name.label(class="form-control-label") }}
-              {{ book_form.publication_name(class="form-control col-sm-10" ) }}
+              {% if book_form.publication_name.errors %}
+              {{ book_form.publication_name(class="form-control col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.publication_name.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ book_form.publication_name(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <div class="form-group-1">
               {{ book_form.branch.label(class="form-control-label") }}
-              {{ book_form.branch(class="form-control col-sm-10" ) }}
+              {% if book_form.branch.errors %}
+              {{ book_form.branch(class="form-control col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.branch.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ book_form.branch(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <div class="form-group-1">
               {{ book_form.edition.label(class="form-control-label") }}
+              {% if book_form.edition.errors %}
+              {{ book_form.edition(class="form-control col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.edition.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
               {{ book_form.edition(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <div class="form-group-1">
               {{ book_form.isbn.label(class="form-control-label") }}
-              {{ book_form.isbn(class="form-control col-sm-10" ) }}
+              {% if book_form.isbn.errors %}
+              {{ book_form.isbn(class="form-control col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.isbn.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ book_form.isbn(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <div class="form-group-1">
               {{ book_form.book_condition.label(class="form-control-label") }}
-              {{ book_form.book_condition(class="form-control col-sm-10" ) }}
+              {% if book_form.book_condition.errors %}
+              {{ book_form.book_condition(class="form-control col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.book_condition.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ book_form.book_condition(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <div class="form-group-1">
               {{ book_form.price.label(class="form-control-label") }}
-              {{ book_form.price(class="form-control col-sm-10") }} 
+              {% if book_form.price.errors %}
+              {{ book_form.price(class="form-control col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.price.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ book_form.price(class="form-control col-sm-10") }}
+              {% endif %}
             </div>
 
             <!-- <div class="form-group-1">
@@ -71,7 +134,6 @@
             <div class="form-group text-center mt-3">
               {{ book_form.submit(class="btn theme-bg rounded-pill mb-5 pb-2 float-left") }}
             </div>
-          </form>
           </form>
         </div>
       </div>

@@ -53,13 +53,44 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        email = request.form.get("email")
+        password = request.form.get("password").encode('utf-8')
+        login = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `email` LIKE "{email}" '
+        cursor = conn.cursor()
+        cursor.execute(login)
+        user = cursor.fetchall()
+        if len(user) > 0:
+            if bcrypt.checkpw(password,user[0][3].encode('utf-8')):
+                session['logged_in']=True
+                session['id']=user[0][0]
+                session['name']=user[0][1]
+                flash('Logged in Successfully!','success')
+                return redirect(url_for('home'))
+            else:
+                flash('Email address and Password did not match','danger')
+        else:
+            flash('Email address does not exist','danger')
+        return redirect(url_for('login'))
     return render_template('login.html', form = form)
 
 
-@app.route('/sell_books')
+@app.route('/sell_books', methods=['GET', 'POST'])
 @login_required
 def sell_books():
     form = SellBooksForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        book_name = request.form.get("book_name")
+        book_author = request.form.get("author_name")
+        publication = request.form.get("publication_name")
+        book_edition = request.form.get("edition")
+        book_oprice = request.form.get("price")
+        new_book = f'INSERT INTO `books`(`book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
+        cursor = conn.cursor()
+        cursor.execute(new_book)
+        conn.commit()
+        flash('Book added!', 'success')
+        return redirect(url_for('sell_books'))  
     return render_template('sellbooks.html', book_form=form)
 
 @app.route('/profile')
@@ -106,27 +137,6 @@ def view(book_id):
     return render_template('view.html', book=curr_book)
 
 
-@app.route('/login_validation', methods=['GET', 'POST'])
-def login_validation():
-    email = request.form.get("email")
-    password = request.form.get("password").encode('utf-8')
-    login = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `email` LIKE "{email}" '
-    cursor = conn.cursor()
-    cursor.execute(login)
-    user = cursor.fetchall()
-    if len(user) > 0:
-        if bcrypt.checkpw(password,user[0][3].encode('utf-8')):
-            session['logged_in']=True
-            session['id']=user[0][0]
-            session['name']=user[0][1]
-            flash('Logged in Successfully!','success')
-            return redirect(url_for('home'))
-        else:
-            flash('Email address and Password did not match','danger')
-    else:
-        flash('Email address does not exist','danger')
-    return redirect(url_for('login'))
-
 @app.route('/logout', methods=['GET','POST'])
 @login_required
 def logout():
@@ -135,21 +145,6 @@ def logout():
     session.pop('id')
     session.pop('name')
     return redirect(url_for('login'))
-
-
-@app.route('/new_book', methods=['GET','POST'])
-def new_book():
-    book_name = request.form.get("book_name")
-    book_author = request.form.get("author_name")
-    publication = request.form.get("publication_name")
-    book_edition = request.form.get("edition")
-    book_oprice = request.form.get("price")
-    new_book = f'INSERT INTO `books`(`book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
-    cursor = conn.cursor()
-    cursor.execute(new_book)
-    conn.commit()
-    flash('Book added!', 'success')
-    return redirect(url_for('sell_books'))
 
 
 

@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" />
     <!-- CSS Personalized -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}" />
     {% block styles %}{% endblock %}
     <!-- font awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}">
+    <script defer src="{{ url_for('static', filename='fontawesome/js/all.js') }}"></script>
+
     <title>{% block title %} {% endblock %} </title>
   </head>
   <body>
@@ -114,10 +111,10 @@
         <div class="row">
           <div class="col-md-3 pl-4 pr-4">
               <h5>Connect with us on:</h5>
-              <a class="color-silver" href="#"><i class="fa fa-2x fa-facebook-square "></i></a>
-              <a class="color-silver pl-2 pr-2" href="#"><i class="fa fa-2x fa fa-instagram"></i></a>
-              <a class="color-silver pr-2" href="#"><i class="fa fa-2x fa fa-google-plus"></i></a>
-              <a class="color-silver" href="#"><i class="fa fa-2x fa fa-twitter"></i></a>
+              <a class="color-silver" href="#"><i class="fab fa-2x fa-facebook-square "></i></a>
+              <a class="color-silver pl-2 pr-2" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+              <a class="color-silver pr-2" href="#"><i class="fab fa-2x fa-google-plus"></i></a>
+              <a class="color-silver" href="#"><i class="fab fa-2x fa-twitter"></i></a>
            </div>
            <div class="col-md-6"></div>
            <div class="col-md-3 pl-4 pr-4">
@@ -131,9 +128,9 @@
       </div>
     
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     </body>
     
     </html>
