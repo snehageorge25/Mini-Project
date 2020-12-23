@@ -23,10 +23,11 @@ class SellBooksForm(FlaskForm):
     branchchoices = ['Computer', 'Information Technology', 'EnTC', 'Mechanical' ,'Civil', 'Electrical']
     branch = SelectField('Branch Name:',choices=branchchoices, validators=[InputRequired()])
     edition = IntegerField('Edition:', validators=[InputRequired(), NumberRange(min=2000, max=2020)])
-    ISBN = IntegerField('ISBN:',validators=[InputRequired(), Length(min=13,max=13)])
+    isbn = IntegerField('ISBN:',validators=[InputRequired(), Length(min=13,max=13)])
     conditionchoices = ['Fine/Like New', 'Good', 'Fair', 'Poor']
     book_condition = SelectField('Book Condition:', choices=conditionchoices, validators=[InputRequired()])
     price = IntegerField('Price:', validators=[InputRequired()])
+    submit = SubmitField('Submit')
     
 class EditProfileForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(), Length(min=2, max=20)])

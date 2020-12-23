@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from forms import RegistrationForm, LoginForm, SellBooksForm, EditProfileForm
 from sqlcon import connect
+from functools import wraps
 import bcrypt
 from datetime import date
 
@@ -9,17 +10,28 @@ app.secret_key = "bookmart"
 
 conn = connect()
 
+
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('You need to login first!','info')
+            return redirect(url_for('login'))
+    return wrap
+
+
 @app.route('/')
+@login_required
 def home():
-    if 'id' in session:
-        flash('Logged in Successfully!','success')
-        books = f'SELECT * FROM `books` WHERE 1'
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute(books)
-        all_books = cursor.fetchall()
-        return render_template('index.html', books=all_books)
-    else:
-        return redirect(url_for('login'))    
+    books = f'SELECT * FROM `books` WHERE 1'
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(books)
+    all_books = cursor.fetchall()
+    return render_template('index.html', books=all_books)
+
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -42,13 +54,16 @@ def signup():
 def login():
     form = LoginForm()
     return render_template('login.html', form = form)
-    
+
+
 @app.route('/sell_books')
+@login_required
 def sell_books():
     form = SellBooksForm()
     return render_template('sellbooks.html', book_form=form)
 
 @app.route('/profile')
+@login_required
 def profile():
     userid = session['id']
     user = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `id` = {userid} '
@@ -58,6 +73,7 @@ def profile():
     return render_template('profile.html', user=user)
 
 @app.route('/edit_profile')
+@login_required
 def edit_profile():
     edit_form = EditProfileForm()
     userid = session['id']
@@ -71,14 +87,17 @@ def edit_profile():
     return render_template('edit_profile.html', edit_form=edit_form)
 
 @app.route('/bought_books')
+@login_required
 def bought_books():
     return render_template('boughtbooks.html')
 
 @app.route('/sold_books')
+@login_required
 def sold_books():
     return render_template('soldbooks.html')
 
 @app.route('/view/<book_id>/')
+@login_required
 def view(book_id):
     book = f'SELECT * FROM `books` WHERE book_id={book_id}'
     cursor = conn.cursor(dictionary=True)
@@ -97,8 +116,10 @@ def login_validation():
     user = cursor.fetchall()
     if len(user) > 0:
         if bcrypt.checkpw(password,user[0][3].encode('utf-8')):
+            session['logged_in']=True
             session['id']=user[0][0]
-            session['name']=user[0][1] 
+            session['name']=user[0][1]
+            flash('Logged in Successfully!','success')
             return redirect(url_for('home'))
         else:
             flash('Email address and Password did not match','danger')
@@ -107,8 +128,10 @@ def login_validation():
     return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET','POST'])
+@login_required
 def logout():
     flash('Logged out Successfully!','warning')
+    session.pop('logged_in')
     session.pop('id')
     session.pop('name')
     return redirect(url_for('login'))
@@ -116,15 +139,16 @@ def logout():
 
 @app.route('/new_book', methods=['GET','POST'])
 def new_book():
-    book_name = request.form.get("BookName")
-    book_author = request.form.get("AuthorName")
-    publication = request.form.get("Publication")
-    book_edition = request.form.get("Edition")
-    book_oprice = request.form.get("Price")
+    book_name = request.form.get("book_name")
+    book_author = request.form.get("author_name")
+    publication = request.form.get("publication_name")
+    book_edition = request.form.get("edition")
+    book_oprice = request.form.get("price")
     new_book = f'INSERT INTO `books`(`book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
     cursor = conn.cursor()
     cursor.execute(new_book)
     conn.commit()
+    flash('Book added!', 'success')
     return redirect(url_for('sell_books'))
 
 

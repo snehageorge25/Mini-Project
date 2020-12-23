@@ -4,18 +4,6 @@
 {% block body %}
 
 <div class="container">
-  <br>
-  {% with messages=get_flashed_messages(with_categories=true)%}
-    {% if messages %}
-      {% for category,message in messages %}
-      <div class="alert alert-{{ category }}  fade show" id="successMessage" role="alert">
-        <span>{{message}}</span>
-      </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-  <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 5000);
-  </script>
 
   <div id="carousel" class="carousel slide" data-ride="carousel">
     <!-- carousel indicators-->

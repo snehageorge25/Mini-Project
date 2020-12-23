@@ -44,8 +44,8 @@
             </div>
 
             <div class="form-group-1">
-              {{ book_form.ISBN.label(class="form-control-label") }}
-              {{ book_form.ISBN(class="form-control col-sm-10" ) }}
+              {{ book_form.isbn.label(class="form-control-label") }}
+              {{ book_form.isbn(class="form-control col-sm-10" ) }}
             </div>
 
             <div class="form-group-1">
@@ -58,7 +58,7 @@
               {{ book_form.price(class="form-control col-sm-10") }} 
             </div>
 
-            <div class="form-group-1">
+            <!-- <div class="form-group-1">
               <label for="">Book Image:</label>
               <input
                 type="file" multiple
@@ -67,10 +67,11 @@
                 name="Book Image"
               />
             </div>
-            <p>To select multiple files, hold down the CTRL or SHIFT key while selecting.</p>
-            <button type="submit" class="btn theme-bg rounded-pill mb-5 pb-2 float-left">
-              Submit
-            </button>
+            <p>To select multiple files, hold down the CTRL or SHIFT key while selecting.</p> -->
+            <div class="form-group text-center mt-3">
+              {{ book_form.submit(class="btn theme-bg rounded-pill mb-5 pb-2 float-left") }}
+            </div>
+          </form>
           </form>
         </div>
       </div>
