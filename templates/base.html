@@ -34,9 +34,9 @@
           {% set active_page = active_page|default('buybooks') -%}
 
           <ul class="navbar-nav pr-5 mr-auto" id="navigation">
-            {% for href, id,caption in navigation_bar %}
+            {% for href, id, caption in navigation_bar %}
             <li {% if id==active_page %} class="active" {% endif %}>
-              <a class="nav-link pl-3" href="{{ href|e }}">{{caption|e }}</a>
+              <a class="nav-link pl-3" href="{{ href|e }}">{{ caption|e }}</a>
             </li>
             {% endfor %}
           </ul>

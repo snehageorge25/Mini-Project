@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from forms import RegistrationForm, LoginForm, SellBooksForm, EditProfileForm
 from sqlcon import connect
+import random
 from functools import wraps
 import bcrypt
 from datetime import date
@@ -37,12 +38,13 @@ def home():
 def signup():
     form = RegistrationForm()
     if request.method == 'POST' and form.validate_on_submit():
+        user_id = "U" + str(random.randint(100000000, 999999999))
         name = request.form.get("name")
         email = request.form.get("email")
         password = request.form.get("password").encode('utf-8')
         hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
         date_joined = str(date.today())
-        new_user = f'INSERT INTO `users`(`name`, `email`, `pw`,`date_joined`) VALUES ("{name}", "{email}", "{hashed}","{date_joined}")'
+        new_user = f'INSERT INTO `users`(`user_id`,`name`, `email`, `pw`,`date_joined`) VALUES ("{user_id}","{name}", "{email}", "{hashed}","{date_joined}")'
         cursor = conn.cursor()
         cursor.execute(new_user)
         conn.commit()
@@ -56,7 +58,7 @@ def login():
     if request.method == 'POST' and form.validate_on_submit():
         email = request.form.get("email")
         password = request.form.get("password").encode('utf-8')
-        login = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `email` LIKE "{email}" '
+        login = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE `email` LIKE "{email}" '
         cursor = conn.cursor()
         cursor.execute(login)
         user = cursor.fetchall()
@@ -80,12 +82,13 @@ def login():
 def sell_books():
     form = SellBooksForm()
     if request.method == 'POST' and form.validate_on_submit():
+        book_id = "B" + str(random.randint(100000000, 999999999))
         book_name = request.form.get("book_name")
         book_author = request.form.get("author_name")
         publication = request.form.get("publication_name")
         book_edition = request.form.get("edition")
         book_oprice = request.form.get("price")
-        new_book = f'INSERT INTO `books`(`book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
+        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
         cursor = conn.cursor()
         cursor.execute(new_book)
         conn.commit()
