@@ -1,136 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" />
-    <!-- CSS Personalized -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}" />
-    {% block styles %}{% endblock %}
-    <!-- font awesome icons -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}">
-    <script defer src="{{ url_for('static', filename='fontawesome/js/all.js') }}"></script>
 
-    <title>{% block title %} {% endblock %} </title>
-  </head>
-  <body>
-    <header>
-      <div id="header">
-        <nav class="navbar navbar-dark bg-dark navbar-expand-lg pr-1">
-          <a class="navbar-brand text-bold" href="/" ><h1 class="name col-8 col-xl-4 text-wrap pl-1">UseMyBook</h1></a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" />
+  <!-- CSS Personalized -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}" />
+  {% block styles %}{% endblock %}
+  <!-- font awesome icons -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}">
+  <script defer src="{{ url_for('static', filename='fontawesome/js/all.js') }}"></script>
 
-          <button
-            data-toggle="collapse"
-            data-target="#navbarToggler"
-            class="navbar-toggler m-1"
-            type="button"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+  <title>{% block title %} {% endblock %} </title>
+</head>
 
-          <div class="collapse navbar-collapse mr-2" id="navbarToggler" style="font-size:large;">
-            <ul class="navbar-nav pr-5 mr-auto">
-              <li class="nav-item">
-                <a id="buybooks" class="nav-link pl-3" href="{{ url_for('home') }}">Buy Books</a>
-              </li>
+<body>
+  <header>
+    <div id="header">
+      <nav class="navbar navbar-dark bg-dark navbar-expand-lg pr-1">
+        <a class="navbar-brand text-bold" href="/">
+          <h1 class="name col-8 col-xl-4 text-wrap pl-1">UseMyBook</h1>
+        </a>
 
-              <li class="nav-item">
-                <a id="sellbooks" class="nav-link pl-3" href="{{ url_for('sell_books') }}">Sell Books</a>
-              </li>
-            </ul>
+        <button data-toggle="collapse" data-target="#navbarToggler" class="navbar-toggler m-1" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <ul class="navbar-nav pr-5 ml-auto">
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn my-sm-0 collapse navbar-collapse" type="submit"><i class="fa fa-search" style="font-size:24px;color:white"></i></button>
-              </form>
-  
-              <li class="nav-item dropdown">
-                <a
-                  id='profile'
-                  class="nav-link navbar-toggler pl-3 py-2 dropdown-toggle"
-                  data-toggle="dropdown"
-                  role="button"
-                  href="#"
-                  onclick="active('profile')"
-                  >More</a
-                >
-                <a
-                  id='profile'
-                  class="nav-link pl-3 collapse navbar-collapse dropdown-toggle border-dark"
-                  data-toggle="dropdown"
-                  role="button"
-                  href="#"
-                  onclick="active('profile')"
-                  ><i class="fa fa-user" style="font-size:24px;color:white"></i></a
-                >
-                <div class="dropdown-menu category-btns1">
-                  <a class="dropdown-item pr-lg-0 " href="{{ url_for('profile') }}">My Profile</a>
-                  <a class="dropdown-item pr-lg-0" href="{{ url_for('bought_books') }}">My Orders</a>
-                  <a class="dropdown-item pr-lg-0" href="{{ url_for('sold_books') }}">Books Sold/To Sell</a>
-                  <a class="dropdown-item pr-lg-0" href="#">Give Feedback</a>
-                  <a class="dropdown-item pr-lg-0" href="{{ url_for('logout') }}">Logout</a>
-                </div>
-              </li>
+        <div class="collapse navbar-collapse mr-2" id="navbarToggler" style="font-size:large;">
+          {% set navigation_bar = [('/', 'buybooks','Buy Books' ),('/sell_books', 'sellbooks','Sell Books')] -%}
 
-              <li class="nav-item text-white">
-                <a class="nav-link navbar-toggler pl-3 pt-2" href="#">
-                  Cart
-                </a>
-                <a class="nav-link pl-3" href="#">
-                  <i class="fa fa-shopping-cart collapse navbar-collapse" style="font-size:24px;color:white"></i>
-                </a>
-              </li>
+          {% set active_page = active_page|default('buybooks') -%}
 
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <div class="container">
-      <br>
-      {% with messages=get_flashed_messages(with_categories=true)%}
-        {% if messages %}
-          {% for category,message in messages %}
-          <div class="alert alert-{{ category }}  fade show" id="successMessage" role="alert">
-            <span>{{message}}</span>
-          </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-      <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 5000);
-      </script>
+          <ul class="navbar-nav pr-5 mr-auto" id="navigation">
+            {% for href, id,caption in navigation_bar %}
+            <li {% if id==active_page %} class="active" {% endif %}>
+              <a class="nav-link pl-3" href="{{ href|e }}">{{caption|e }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+
+          <ul class="navbar-nav pr-5 ml-auto">
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn my-sm-0 collapse navbar-collapse" type="submit"><i class="fa fa-search"
+                  style="font-size:24px;color:white"></i></button>
+            </form>
+
+            <li class="nav-item dropdown">
+              <a id='profile' class="nav-link navbar-toggler pl-3 py-2 dropdown-toggle" data-toggle="dropdown"
+                role="button" href="#" onclick="active('profile')">More</a>
+              <a id='profile' class="nav-link pl-3 collapse navbar-collapse dropdown-toggle border-dark"
+                data-toggle="dropdown" role="button" href="#" onclick="active('profile')"><i class="fa fa-user"
+                  style="font-size:24px;color:white"></i></a>
+              <div class="dropdown-menu category-btns1">
+                <a class="dropdown-item pr-lg-0 " href="{{ url_for('profile') }}">My Profile</a>
+                <a class="dropdown-item pr-lg-0" href="{{ url_for('bought_books') }}">My Orders</a>
+                <a class="dropdown-item pr-lg-0" href="{{ url_for('sold_books') }}">Books Sold/To Sell</a>
+                <a class="dropdown-item pr-lg-0" href="#">Give Feedback</a>
+                <a class="dropdown-item pr-lg-0" href="{{ url_for('logout') }}">Logout</a>
+              </div>
+            </li>
+
+            <li class="nav-item text-white">
+              <a class="nav-link navbar-toggler pl-3 pt-2" href="#">
+                Cart
+              </a>
+              <a class="nav-link pl-3" href="#">
+                <i class="fa fa-shopping-cart collapse navbar-collapse" style="font-size:24px;color:white"></i>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </nav>
     </div>
-    {% block body %} {% endblock %}
-    <footer>
+  </header>
+  <div class="container">
+    <br>
+    {% with messages=get_flashed_messages(with_categories=true)%}
+    {% if messages %}
+    {% for category,message in messages %}
+    <div class="alert alert-{{ category }}  fade show" id="successMessage" role="alert">
+      <span>{{message}}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 5000);
+    </script>
+  </div>
+  {% block body %} {% endblock %}
+  <footer>
 
 
     <footer class="full-footer">
       <div class="container top-footer p-md-1 p-1">
         <div class="row">
           <div class="col-md-3 pl-4 pr-4">
-              <h5>Connect with us on:</h5>
-              <a class="color-silver" href="#"><i class="fab fa-2x fa-facebook-square "></i></a>
-              <a class="color-silver pl-2 pr-2" href="#"><i class="fab fa-2x fa-instagram"></i></a>
-              <a class="color-silver pr-2" href="#"><i class="fab fa-2x fa-google-plus"></i></a>
-              <a class="color-silver" href="#"><i class="fab fa-2x fa-twitter"></i></a>
-           </div>
-           <div class="col-md-6"></div>
-           <div class="col-md-3 pl-4 pr-4">
+            <h5>Connect with us on:</h5>
+            <a class="color-silver" href="#"><i class="fab fa-2x fa-facebook-square "></i></a>
+            <a class="color-silver pl-2 pr-2" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+            <a class="color-silver pr-2" href="#"><i class="fab fa-2x fa-google-plus"></i></a>
+            <a class="color-silver" href="#"><i class="fab fa-2x fa-twitter"></i></a>
+          </div>
+          <div class="col-md-6"></div>
+          <div class="col-md-3 pl-4 pr-4">
             <h5>Contact Us</h5>
             <a class="color-silver" href="tel:919876543210"><i class="fa  fa-phone-square"></i> +(91)
-                9876543210</a><br>
+              9876543210</a><br>
             <a class="color-silver" href="mail to:usemybook1@gmail.com"><i class="fa fa-envelope-square"></i>
-                usemybook1@gmail.com</a><br>
+              usemybook1@gmail.com</a><br>
           </div>
         </div>
       </div>
-    
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{ url_for('static', filename='bootstrap/js/jquery-3.5.1.slim.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap/js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    </body>
-    
-    </html>
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="{{ url_for('static', filename='bootstrap/js/jquery-3.5.1.slim.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='bootstrap/js/popper.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>
