@@ -88,7 +88,8 @@ def sell_books():
         publication = request.form.get("publication_name")
         book_edition = request.form.get("edition")
         book_oprice = request.form.get("price")
-        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
+        date_added = str(date.today())
+        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`,`date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}",{book_edition},{book_oprice},"{date_added}")'
         cursor = conn.cursor()
         cursor.execute(new_book)
         conn.commit()
@@ -100,7 +101,7 @@ def sell_books():
 @login_required
 def profile():
     userid = session['id']
-    user = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `id` = {userid} '
+    user = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE `user_id`= {userid} '
     cursor = conn.cursor(dictionary=True)
     cursor.execute(user)
     user = cursor.fetchone()
@@ -111,7 +112,7 @@ def profile():
 def edit_profile():
     edit_form = EditProfileForm()
     userid = session['id']
-    user = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `id` = {userid} '
+    user = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE  `user_id` = {userid} '
     cursor = conn.cursor()
     cursor.execute(user)
     user = cursor.fetchone()
