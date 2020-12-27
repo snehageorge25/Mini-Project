@@ -36,7 +36,6 @@ class EditProfileForm(FlaskForm):
     addressline2 = StringField('Address Line 2', validators=[InputRequired(), Length(min=2)])
     mobileno = StringField("Mobile No.", validators=[InputRequired(), Length(10)]) 
     profession = StringField('Profession', validators=[InputRequired(), Length(min=2)])
-    # dateofbirth = DateField("Date of Birth", validators=[DateRange(date(1950,1,1), date(2020,12,30))])
     dateofbirth = DateField("Date of Birth", validators=[InputRequired()])
     gender = RadioField('Gender', choices=[('male','Male'),('female','Female'),('other','Other')])
     submit = SubmitField('Submit')

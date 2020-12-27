@@ -100,7 +100,7 @@ def sell_books():
 @login_required
 def profile():
     userid = session['id']
-    user = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `id` = {userid} '
+    user = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE `user_id` = "{userid}" '
     cursor = conn.cursor(dictionary=True)
     cursor.execute(user)
     user = cursor.fetchone()
@@ -111,7 +111,7 @@ def profile():
 def edit_profile():
     edit_form = EditProfileForm()
     userid = session['id']
-    user = f'SELECT `id`, `name`, `email`, `pw` FROM `users` WHERE `id` = {userid} '
+    user = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE `user_id` = "{userid}" '
     cursor = conn.cursor()
     cursor.execute(user)
     user = cursor.fetchone()
