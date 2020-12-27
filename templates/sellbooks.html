@@ -8,7 +8,7 @@
         <div class="Sform col-sm-10 col-md-10 col-lg-8 m-auto">
           <h1>Book Registeration Form</h1>
           <p>Fill out the details carefully.</p>
-          <form class="form-horizontal" action="" method="POST">
+          <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
             {{ book_form.hidden_tag() }}
             <div class="form-group-1">
               {{ book_form.book_name.label(class="form-control-label") }}
@@ -122,16 +122,28 @@
               {% endif %}
             </div>
 
+            <div class="form-group-1">
+              {{ book_form.image.label(class="form-control-label") }}
+              {% if book_form.image.errors %}
+              {{ book_form.image(class="form-control-file col-sm-10 is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in book_form.image.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ book_form.image(class="form-control-file col-sm-10") }}
+              {% endif %}
+          </div>
             <!-- <div class="form-group-1">
               <label for="">Book Image:</label>
               <input
-                type="file" multiple
+                type="file"
                 id="Book Image"
                 accept="image/*"
                 name="Book Image"
               />
-            </div>
-            <p>To select multiple files, hold down the CTRL or SHIFT key while selecting.</p> -->
+            </div> -->
             <div class="form-group text-center mt-3">
               {{ book_form.submit(class="btn theme-bg rounded-pill mb-5 pb-2 float-left") }}
             </div>

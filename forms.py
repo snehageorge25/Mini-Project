@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField,SelectField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField, SelectField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.fields.html5 import DateField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 
@@ -17,16 +18,17 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class SellBooksForm(FlaskForm):
-    book_name = StringField('Book Name:', validators=[InputRequired(), Length(min=2, max=20)])
-    author_name = StringField('Author Name:', validators=[InputRequired(), Length(min=2, max=20)])
-    publication_name = StringField('Publication Name:', validators=[InputRequired(), Length(min=2, max=20)])
-    branchchoices = ['Computer', 'Information Technology', 'EnTC', 'Mechanical' ,'Civil', 'Electrical']
+    book_name = StringField('Book Name:', validators=[InputRequired(), Length(min=2, max=100)])
+    author_name = StringField('Author Name:', validators=[InputRequired(), Length(min=2, max=100)])
+    publication_name = StringField('Publication Name:', validators=[InputRequired(), Length(min=2, max=100)])
+    branchchoices = [(1, 'Computer'), (2, 'Information Technology'), (3, 'EnTC'), (4, 'Mechanical') ,(5, 'Civil'), (6, 'Electrical')]
     branch = SelectField('Branch Name:',choices=branchchoices, validators=[InputRequired()])
     edition = IntegerField('Edition:', validators=[InputRequired(), NumberRange(min=2000, max=2020)])
-    isbn = IntegerField('ISBN:',validators=[InputRequired()])
+    isbn = StringField('ISBN:',validators=[InputRequired(), Length(min=13, max=13)])
     conditionchoices = ['Fine/Like New', 'Good', 'Fair', 'Poor']
     book_condition = SelectField('Book Condition:', choices=conditionchoices, validators=[InputRequired()])
     price = IntegerField('Price:', validators=[InputRequired()])
+    image = FileField('Book Image', validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Images only!')])
     submit = SubmitField('Submit')
     
 class EditProfileForm(FlaskForm):

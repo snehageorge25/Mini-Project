@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from forms import RegistrationForm, LoginForm, SellBooksForm, EditProfileForm
 from sqlcon import connect
@@ -38,13 +39,13 @@ def home():
 def signup():
     form = RegistrationForm()
     if request.method == 'POST' and form.validate_on_submit():
-        user_id = "U" + str(random.randint(100000000, 999999999))
+        user_id = "U" + str(random.randint(100, 999)) + str(random.randint(100, 999)) + str(random.randint(100, 999))
         name = request.form.get("name")
         email = request.form.get("email")
         password = request.form.get("password").encode('utf-8')
         hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
         date_joined = str(date.today())
-        new_user = f'INSERT INTO `users`(`user_id`,`name`, `email`, `pw`,`date_joined`) VALUES ("{user_id}","{name}", "{email}", "{hashed}","{date_joined}")'
+        new_user = f'INSERT INTO `users`(`user_id`,`name`, `email`, `password`,`date_joined`) VALUES ("{user_id}","{name}", "{email}", "{hashed}","{date_joined}")'
         cursor = conn.cursor()
         cursor.execute(new_user)
         conn.commit()
@@ -58,7 +59,7 @@ def login():
     if request.method == 'POST' and form.validate_on_submit():
         email = request.form.get("email")
         password = request.form.get("password").encode('utf-8')
-        login = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE `email` LIKE "{email}" '
+        login = f'SELECT `user_id`, `name`, `email`, `password` FROM `users` WHERE `email` LIKE "{email}" '
         cursor = conn.cursor()
         cursor.execute(login)
         user = cursor.fetchall()
@@ -77,19 +78,34 @@ def login():
     return render_template('login.html', form = form)
 
 
+def save_picture(form_image):
+    img_id = "I" + str(random.randint(100, 999)) + str(random.randint(100, 999)) + str(random.randint(100, 999))
+    _, f_ext = os.path.splitext(form_image.filename)
+    pic_fn = img_id + f_ext
+    pic_path = os.path.join('static/book_images', pic_fn)
+    form_image.save(pic_path)
+    return pic_fn
+
+
 @app.route('/sell_books', methods=['GET', 'POST'])
 @login_required
 def sell_books():
     form = SellBooksForm()
     if request.method == 'POST' and form.validate_on_submit():
-        book_id = "B" + str(random.randint(100000000, 999999999))
+        book_id = "B" + str(random.randint(100, 999)) + str(random.randint(100, 999)) + str(random.randint(100, 999))
         book_name = request.form.get("book_name")
         book_author = request.form.get("author_name")
         publication = request.form.get("publication_name")
+        branch_id = request.form.get("branch")
         book_edition = request.form.get("edition")
-        book_oprice = request.form.get("price")
+        isbn = request.form.get("isbn")
+        condition = request.form.get("book_condition")
+        cond_dict = {'Fine/Like New': 0.10, 'Good': 0.20, 'Fair': 0.30, 'Poor': 0.40}
+        book_oprice = float(request.form.get("price"))
+        book_dprice = book_oprice - book_oprice*float(cond_dict[condition])
+        book_image = save_picture(form.image.data)
         date_added = str(date.today())
-        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`,`date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}",{book_edition},{book_oprice},"{date_added}")'
+        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication_name`,`branch_id`, `edition`, `isbn`, `book_condition`, `price`, `discounted_price`, `image_id`, `date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}", {branch_id}, {book_edition}, "{isbn}", "{condition}", {book_oprice}, {book_dprice}, "{book_image}", "{date_added}")'
         cursor = conn.cursor()
         cursor.execute(new_book)
         conn.commit()
@@ -101,7 +117,7 @@ def sell_books():
 @login_required
 def profile():
     userid = session['id']
-    user = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE `user_id` = "{userid}" '
+    user = f'SELECT `user_id`, `name`, `email`, `password` FROM `users` WHERE `user_id` = "{userid}" '
     cursor = conn.cursor(dictionary=True)
     cursor.execute(user)
     user = cursor.fetchone()
@@ -112,7 +128,7 @@ def profile():
 def edit_profile():
     edit_form = EditProfileForm()
     userid = session['id']
-    user = f'SELECT `user_id`, `name`, `email`, `pw` FROM `users` WHERE `user_id` = "{userid}" '
+    user = f'SELECT `user_id`, `name`, `email`, `password` FROM `users` WHERE `user_id` = "{userid}" '
     cursor = conn.cursor()
     cursor.execute(user)
     user = cursor.fetchone()
