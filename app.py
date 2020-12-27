@@ -88,7 +88,8 @@ def sell_books():
         publication = request.form.get("publication_name")
         book_edition = request.form.get("edition")
         book_oprice = request.form.get("price")
-        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}",{book_edition},{book_oprice})'
+        date_added = str(date.today())
+        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication`, `book_edition`, `book_oprice`,`date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}",{book_edition},{book_oprice},"{date_added}")'
         cursor = conn.cursor()
         cursor.execute(new_book)
         conn.commit()

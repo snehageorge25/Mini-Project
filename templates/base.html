@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse mr-2" id="navbarToggler" style="font-size:large;">
           {% set navigation_bar = [('/', 'buybooks','Buy Books' ),('/sell_books', 'sellbooks','Sell Books')] -%}
 
-          {% set active_page = active_page|default('buybooks') -%}
+          {% set active_page = active_page -%}
 
           <ul class="navbar-nav pr-5 mr-auto" id="navigation">
             {% for href, id, caption in navigation_bar %}
