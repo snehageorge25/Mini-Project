@@ -2,12 +2,12 @@
 {% block title %} UseMyBook {% endblock %} 
 
 {% block body %}
-<div class="container-fluid p-5" style="background-color: #dcdcdc;">
+<div class="container-fluid p-5 bt-0 mt-0" style="background-color: #dcdcdc;">
   <div class="container bg-white">
   <div class="row p-3">
       <div class="col-12 col-md-6 border-right border-grey" style="height:80vh">
           <div style="width: 300px; height: 500px">
-            <img class="img-fluid d-block mx-auto pl-lg-5 p-md-3" src="https://source.unsplash.com/900x1000/?specs, book" alt="Card image cap">
+            <img class="img-fluid d-block mx-auto pl-lg-5 p-md-3" src="static/book_images/{{ book['image_id'] }}" alt="Book Image">
           </div>
       </div>
       <div class="col-12 col-md-6 pl-3 pt-3">
@@ -15,8 +15,8 @@
         <p class="card-text">
           {{ book['book_author'] }} <br>
           {{ book['publication'] }} 
-         <h6> Actual Price: <i class="fas fa-rupee-sign"></i> <s>200</s></h6>
-         <h5> Discounted Price: <i class="fas fa-rupee-sign"></i> 200 </h5>
+         <h6> Actual Price: <i class="fas fa-rupee-sign"></i> <s>{{ book['price'] }}</s></h6>
+         <h5> Discounted Price: <i class="fas fa-rupee-sign"></i>{{ book['discounted_price'] }}</h5>
         </p>
         <a href="/view/{{ book['book_id'] }}" class="btn btn-success">BUY NOW</a>
       </div>

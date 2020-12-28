@@ -98,6 +98,8 @@ background: linear-gradient(to right,#5F0A87,#A4508B);  */
 /* footer begins */
 
 .full-footer{
+    bottom:0;
+    width: 100%;
     background: #343a40;
 }
 

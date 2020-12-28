@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <div class="container text-center">
+            <div class="row my-3 p-2">
+            {% if books %}
+            {% for book in books %}
+                <div class="card m-2" style="width: 15rem;">
+                    <img class="card-img-top" src="static/book_images/{{ book['image_id'] }}" alt="Card image cap">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ book['book_name'] }}</h5>
+                    <p class="card-text">
+                        {{ book['book_author'] }} <br>
+                        {{ book['publication'] }}
+                    </p>
+                    <a href="/view/{{ book['book_id'] }}" class="btn theme-bg rounded-pill">VIEW</a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <div class="w-100">
+                <img class="img-fluid" src="{{ url_for('static', filename='images/booknotfound.jpg') }}">
+              </div>
+            {% endif %}
+            </div>
+        </div>
+{% endblock %}

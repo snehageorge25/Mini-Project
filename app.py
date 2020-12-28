@@ -112,19 +112,19 @@ def sell_books():
         flash('Book added!', 'success')
         return redirect(url_for('sell_books'))  
     return render_template('sellbooks.html', book_form=form)
- 
-@app.route('/search',methods=['GET','POST'])
-@login_required
+
+
+@app.route('/search')
 def search():
-    book_name = request.form.get("book_name")
-    #book = request.form['book']
-    cursor = conn.cursor()
-    book_search=f'SELECT `book_name` from `books` WHERE `book_name`  LIKE "{book_name}"'
+    book_name = request.args.get("book_name")
+    book_search = f'SELECT * from `books` WHERE `book_name` LIKE "%{book_name}%"'
+    print(book_search)
+    cursor = conn.cursor(dictionary=True)
     cursor.execute(book_search)
-    conn.commit()
-    data = cursor.fetchall()
-    return render_template('base.html', data=data)
+    searched_books = cursor.fetchall()
+    return render_template('search.html', books=searched_books)
     
+
 @app.route('/profile')
 @login_required
 def profile():
@@ -162,7 +162,7 @@ def sold_books():
 @app.route('/view/<book_id>/')
 @login_required
 def view(book_id):
-    book = f'SELECT * FROM `books` WHERE book_id={book_id}'
+    book = f'SELECT * FROM `books` WHERE `book_id`="{book_id}"'
     cursor = conn.cursor(dictionary=True)
     cursor.execute(book)
     curr_book = cursor.fetchone()
