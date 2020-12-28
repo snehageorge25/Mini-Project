@@ -112,7 +112,19 @@ def sell_books():
         flash('Book added!', 'success')
         return redirect(url_for('sell_books'))  
     return render_template('sellbooks.html', book_form=form)
-
+ 
+@app.route('/search',methods=['GET','POST'])
+@login_required
+def search():
+    book_name = request.form.get("book_name")
+    #book = request.form['book']
+    cursor = conn.cursor()
+    book_search=f'SELECT `book_name` from `books` WHERE `book_name`  LIKE "{book_name}"'
+    cursor.execute(book_search)
+    conn.commit()
+    data = cursor.fetchall()
+    return render_template('base.html', data=data)
+    
 @app.route('/profile')
 @login_required
 def profile():
