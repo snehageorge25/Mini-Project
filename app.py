@@ -118,7 +118,6 @@ def sell_books():
 def search():
     book_name = request.args.get("book_name")
     book_search = f'SELECT * from `books` WHERE `book_name` LIKE "%{book_name}%"'
-    print(book_search)
     cursor = conn.cursor(dictionary=True)
     cursor.execute(book_search)
     searched_books = cursor.fetchall()

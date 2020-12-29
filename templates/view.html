@@ -3,20 +3,25 @@
 
 {% block body %}
 <div class="container-fluid p-5 bt-0 mt-0" style="background-color: #dcdcdc;">
-  <div class="container bg-white">
-  <div class="row p-3">
+  <div class="container bg-white ">
+  <div class="row p-3 col-lg-10">
       <div class="col-12 col-md-6 border-right border-grey" style="height:80vh">
-          <div style="width: 300px; height: 500px">
-            <img class="img-fluid d-block mx-auto pl-lg-5 p-md-3" src="static/book_images/{{ book['image_id'] }}" alt="Book Image">
+          <div style="width: 300px; height: 500px" >
+            <img class="img-fluid d-block mx-auto pl-lg-5 p-md-3 " src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
           </div>
       </div>
-      <div class="col-12 col-md-6 pl-3 pt-3">
-        <h5>{{ book['book_name'] }}</h5>
+      <div class="col-12 col-md-6 pl-5 pt-3">
+        <h2>{{ book['book_name'] }}</h2>
         <p class="card-text">
-          {{ book['book_author'] }} <br>
-          {{ book['publication'] }} 
-         <h6> Actual Price: <i class="fas fa-rupee-sign"></i> <s>{{ book['price'] }}</s></h6>
-         <h5> Discounted Price: <i class="fas fa-rupee-sign"></i>{{ book['discounted_price'] }}</h5>
+         by {{ book['book_author'] }} <br>
+          {{ book['publication_name'] }} 
+
+         <h6><b> Edition:</b> {{ book['edition']}}</h6>
+         <h6><b> ISBN:</b> {{ book['isbn'] }}</h6>
+         <h6><b> Book Condition:</b> {{ book['book_condition']}}</h6>
+         <br>
+         <h6><b> Actual Price:</b> <i class="fas fa-rupee-sign"></i> <s>{{ book['price'] }}</s></h6>
+         <h5><b> Discounted Price:</b> <i class="fas fa-rupee-sign"></i>{{ book['discounted_price'] }}</h5>
         </p>
         <a href="/view/{{ book['book_id'] }}" class="btn btn-success">BUY NOW</a>
       </div>
