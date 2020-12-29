@@ -31,6 +31,7 @@ def home():
     cursor = conn.cursor(dictionary=True)
     cursor.execute(books)
     all_books = cursor.fetchall()
+    print(all_books)
     return render_template('index.html', books=all_books)
 
 
@@ -106,8 +107,11 @@ def sell_books():
         book_image = save_picture(form.image.data)
         date_added = str(date.today())
         new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication_name`,`branch_id`, `edition`, `isbn`, `book_condition`, `price`, `discounted_price`, `image_id`, `date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}", {branch_id}, {book_edition}, "{isbn}", "{condition}", {book_oprice}, {book_dprice}, "{book_image}", "{date_added}")'
+        user_id = session['id']
+        new_seller = f'INSERT INTO `sellers`(`seller_id`, `book_id`) VALUES ("{user_id}","{book_id}")'
         cursor = conn.cursor()
         cursor.execute(new_book)
+        cursor.execute(new_seller)
         conn.commit()
         flash('Book added!', 'success')
         return redirect(url_for('sell_books'))  
@@ -123,6 +127,16 @@ def search():
     searched_books = cursor.fetchall()
     return render_template('search.html', books=searched_books)
     
+
+@app.route('/categories/<branch_name>/')
+@login_required
+def categories(branch_name):
+    branchbooksearch = f'SELECT * FROM `books` WHERE `branch_id` IN (SELECT `branch_id` FROM `branch` WHERE `branch_name`="{branch_name}")'
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(branchbooksearch)
+    branchbooks = cursor.fetchall()
+    return render_template('index.html', books=branchbooks, branch=branch_name)
+
 
 @app.route('/profile')
 @login_required

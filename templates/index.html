@@ -49,12 +49,12 @@
   <div class="row my-3">
     <div class="col-lg-3 col-md-4 border-right border-dark" style="height:80vh">
       <h2 class="text-center">Branch<h2>
-          <a href="#" class="btn btn-lg btn-block category-btns rounded-pill">Computer </a>
-          <a href="#" class="btn btn-lg btn-block category-btns rounded-pill">Information Technology </a>
-          <a href="#" class="btn btn-lg btn-block category-btns rounded-pill">EnTC </a>
-          <a href="#" class="btn btn-lg btn-block category-btns rounded-pill">Mechanical </a>
-          <a href="#" class="btn btn-lg btn-block category-btns rounded-pill">Civil </a>
-          <a href="#" class="btn btn-lg btn-block category-btns rounded-pill">Electrical </a>
+          <a href="/categories/Computer" class="btn btn-lg btn-block category-btns rounded-pill">Computer </a>
+          <a href="/categories/Information Technology" class="btn btn-lg btn-block category-btns rounded-pill">Information Technology </a>
+          <a href="/categories/EnTC" class="btn btn-lg btn-block category-btns rounded-pill">EnTC </a>
+          <a href="/categories/Mechanical" class="btn btn-lg btn-block category-btns rounded-pill">Mechanical </a>
+          <a href="/categories/Civil" class="btn btn-lg btn-block category-btns rounded-pill">Civil </a>
+          <a href="/categories/Electrical" class="btn btn-lg btn-block category-btns rounded-pill">Electrical </a>
     </div>
 
 
@@ -62,7 +62,7 @@
       <div class="row p-2">
         {% for book in books %}
         <div class="card m-2" style="width: 15rem;">
-          <img class="card-img-top" src="static/book_images/{{ book['image_id'] }}" alt="Book Image">
+          <img class="card-img-top" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
           <div class="card-body">
             <h5 class="card-title">{{ book['book_name'] }}</h5>
             <p class="card-text">
