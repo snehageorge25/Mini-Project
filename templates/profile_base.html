@@ -6,8 +6,8 @@
         <div class="col-lg-3 col-md-4 border-right border-dark" style="height:80vh">
             <div class="text-center">
                 <img src="{{ url_for('static', filename='images/emptyprofile.jpg') }}" class="img-fluid rounded-circle my-2">
-                <p> This is my name </p>
-                This is my email
+                <p><b>{{ user['name'] }}</b></p>
+                <p>{{ user['email'] }}</p>
                 <hr>
                 <a class="btn category-btns1 rounded-pill m-2" href="/bought_books">Bought Books</a>
                 <br>

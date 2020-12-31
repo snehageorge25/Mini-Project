@@ -13,6 +13,19 @@ app.secret_key = "bookmart"
 conn = connect()
 
 
+@app.context_processor
+def utility_processor():
+    if 'logged_in' in session:
+        user_id = session['id']
+        user = f'SELECT `user_id`, `name`, `email`, `dob`, `mobile_no`, `addr1`, `addr2`, `pin_code`, `profilepic_id`, `profile_completed` FROM `users` WHERE `user_id` = "{user_id}" '
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(user)
+        user = cursor.fetchone()
+        return dict(user=user)
+    else:
+        return {'user':'not_logged_in'}
+
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -31,7 +44,6 @@ def home():
     cursor = conn.cursor(dictionary=True)
     cursor.execute(books)
     all_books = cursor.fetchall()
-    print(all_books)
     return render_template('index.html', books=all_books)
 
 
@@ -61,14 +73,13 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password").encode('utf-8')
         login = f'SELECT `user_id`, `name`, `email`, `password` FROM `users` WHERE `email` LIKE "{email}" '
-        cursor = conn.cursor()
+        cursor = conn.cursor(dictionary=True)
         cursor.execute(login)
-        user = cursor.fetchall()
-        if len(user) > 0:
-            if bcrypt.checkpw(password,user[0][3].encode('utf-8')):
+        user = cursor.fetchone()
+        if user:
+            if bcrypt.checkpw(password,user['password'].encode('utf-8')):
                 session['logged_in']=True
-                session['id']=user[0][0]
-                session['name']=user[0][1]
+                session['id']=user['user_id']
                 flash('Logged in Successfully!','success')
                 return redirect(url_for('home'))
             else:
@@ -92,29 +103,35 @@ def save_picture(form_image):
 @login_required
 def sell_books():
     form = SellBooksForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        book_id = "B" + str(random.randint(100, 999)) + str(random.randint(100, 999)) + str(random.randint(100, 999))
-        book_name = request.form.get("book_name")
-        book_author = request.form.get("author_name")
-        publication = request.form.get("publication_name")
-        branch_id = request.form.get("branch")
-        book_edition = request.form.get("edition")
-        isbn = request.form.get("isbn")
-        condition = request.form.get("book_condition")
-        cond_dict = {'Fine/Like New': 0.10, 'Good': 0.20, 'Fair': 0.30, 'Poor': 0.40}
-        book_oprice = float(request.form.get("price"))
-        book_dprice = book_oprice - book_oprice*float(cond_dict[condition])
-        book_image = save_picture(form.image.data)
-        date_added = str(date.today())
-        new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication_name`,`branch_id`, `edition`, `isbn`, `book_condition`, `price`, `discounted_price`, `image_id`, `date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}", {branch_id}, {book_edition}, "{isbn}", "{condition}", {book_oprice}, {book_dprice}, "{book_image}", "{date_added}")'
-        user_id = session['id']
-        new_seller = f'INSERT INTO `sellers`(`seller_id`, `book_id`) VALUES ("{user_id}","{book_id}")'
-        cursor = conn.cursor()
-        cursor.execute(new_book)
-        cursor.execute(new_seller)
-        conn.commit()
-        flash('Book added!', 'success')
-        return redirect(url_for('sell_books'))  
+    user_dict = utility_processor()
+    user = user_dict['user']
+    if user['profile_completed'] == 1:
+        if request.method == 'POST' and form.validate_on_submit():
+            book_id = "B" + str(random.randint(100, 999)) + str(random.randint(100, 999)) + str(random.randint(100, 999))
+            book_name = request.form.get("book_name")
+            book_author = request.form.get("author_name")
+            publication = request.form.get("publication_name")
+            branch_id = request.form.get("branch")
+            book_edition = request.form.get("edition")
+            isbn = request.form.get("isbn")
+            condition = request.form.get("book_condition")
+            cond_dict = {'Fine/Like New': 0.10, 'Good': 0.20, 'Fair': 0.30, 'Poor': 0.40}
+            book_oprice = float(request.form.get("price"))
+            book_dprice = book_oprice - book_oprice*float(cond_dict[condition])
+            book_image = save_picture(form.image.data)
+            date_added = str(date.today())
+            new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication_name`,`branch_id`, `edition`, `isbn`, `book_condition`, `price`, `discounted_price`, `image_id`, `date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}", {branch_id}, {book_edition}, "{isbn}", "{condition}", {book_oprice}, {book_dprice}, "{book_image}", "{date_added}")'
+            user_id = session['id']
+            new_seller = f'INSERT INTO `sellers`(`seller_id`, `book_id`) VALUES ("{user_id}","{book_id}")'
+            cursor = conn.cursor()
+            cursor.execute(new_book)
+            cursor.execute(new_seller)
+            conn.commit()
+            flash('Book added!', 'success')
+            return redirect(url_for('sell_books'))
+    else:
+        flash('Complete your profile to proceed', 'warning')
+        return redirect(url_for('edit_profile'))
     return render_template('sellbooks.html', book_form=form)
 
 
@@ -141,25 +158,32 @@ def categories(branch_name):
 @app.route('/profile')
 @login_required
 def profile():
-    userid = session['id']
-    user = f'SELECT `user_id`, `name`, `email`, `password` FROM `users` WHERE `user_id` = "{userid}" '
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute(user)
-    user = cursor.fetchone()
-    return render_template('profile.html', user=user)
+    return render_template('profile.html')
 
-@app.route('/edit_profile')
+@app.route('/edit_profile',  methods=['GET', 'POST'])
 @login_required
 def edit_profile():
     edit_form = EditProfileForm()
-    userid = session['id']
-    user = f'SELECT `user_id`, `name`, `email`, `password` FROM `users` WHERE `user_id` = "{userid}" '
-    cursor = conn.cursor()
-    cursor.execute(user)
-    user = cursor.fetchone()
-    if request.method == 'GET':
-        edit_form.name.data = user[1]
-        edit_form.email.data = user[2]
+    user_dict = utility_processor()
+    user = user_dict['user']
+    user_id = user['user_id']
+    if request.method == 'POST' and edit_form.validate_on_submit():
+        name = edit_form.name.data
+        email = edit_form.email.data
+        dob = edit_form.dateofbirth.data
+        mobile_no = edit_form.mobileno.data
+        addr1 = edit_form.addressline1.data
+        addr2 = edit_form.addressline2.data
+        pincode = edit_form.pincode.data
+        user_info = f'UPDATE `users` SET `name`="{name}", `email`="{email}", `dob`="{dob}", `mobile_no`={mobile_no}, `addr1`="{addr1}", `addr2`="{addr2}", `pin_code`="{pincode}", `profile_completed`=1 WHERE `user_id`="{user_id}"'
+        cursor = conn.cursor()
+        cursor.execute(user_info)
+        conn.commit()
+        flash('Profile Completed!', 'success')
+        return redirect(url_for('edit_profile'))
+    elif request.method == 'GET':
+        edit_form.name.data = user['name']
+        edit_form.email.data = user['email']
     return render_template('edit_profile.html', edit_form=edit_form)
 
 @app.route('/bought_books')
@@ -188,7 +212,6 @@ def logout():
     flash('Logged out Successfully!','warning')
     session.pop('logged_in')
     session.pop('id')
-    session.pop('name')
     return redirect(url_for('login'))
 
 

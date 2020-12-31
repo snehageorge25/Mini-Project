@@ -8,36 +8,104 @@
     <div class="Sform col-sm-10 col-lg-8 mt-0">
       <h1>Profile</h1>
       <p>Fill out the details carefully.</p>
-      <form class="form-horizontal" action="/action_page.php">
+      <form class="form-horizontal" action="" method="POST">
       {{ edit_form.hidden_tag() }}
         <div class="form-group-1">
           {{ edit_form.name.label(class="form-control-label") }}
-          {{ edit_form.name(class="form-control text-dark") }}
+          {% if edit_form.name.errors %}
+            {{ edit_form.name(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+            {% for error in edit_form.name.errors %}
+              <span>{{error}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{ edit_form.name(class="form-control text-dark") }}
+          {% endif %}
         </div>
 
         <div class="form-group-1">
           {{ edit_form.email.label(class="form-control-label") }}
-          {{ edit_form.email(class="form-control text-dark") }}
+          {% if edit_form.email.errors %}
+            {{ edit_form.email(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+            {% for error in edit_form.email.errors %}
+              <span>{{error}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{ edit_form.email(class="form-control text-dark") }}
+          {% endif %}
         </div>
 
         <div class="form-group-1">
           {{ edit_form.addressline1.label(class="form-control-label") }}
-          {{ edit_form.addressline1(class="form-control text-dark", placeholder="Flat, House No., Building") }}
+          {% if edit_form.addressline1.errors %}
+            {{ edit_form.addressline1(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+            {% for error in edit_form.addressline1.errors %}
+              <span>{{error}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{ edit_form.addressline1(class="form-control text-dark", placeholder="Flat, House No., Building") }}
+          {% endif %}
         </div>
 
         <div class="form-group-1">
           {{ edit_form.addressline2.label(class="form-control-label") }}
-          {{ edit_form.addressline2(class="form-control text-dark", placeholder="Area, Colony, Street, City, State") }}
+          {% if edit_form.addressline2.errors %}
+            {{ edit_form.addressline2(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+            {% for error in edit_form.addressline2.errors %}
+              <span>{{error}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{ edit_form.addressline2(class="form-control text-dark", placeholder="Area, Colony, Street, City, State") }}
+          {% endif %}
+        </div>
+
+        <div class="form-group-1">
+          {{ edit_form.pincode.label(class="form-control-label") }}
+          {% if edit_form.pincode.errors %}
+            {{ edit_form.pincode(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+            {% for error in edit_form.pincode.errors %}
+              <span>{{error}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{ edit_form.pincode(class="form-control text-dark", placeholder="6-digit pin-code") }}
+          {% endif %}
         </div>
 
         <div class="form-group-1">
           {{ edit_form.mobileno.label(class="form-control-label") }}
-          {{ edit_form.mobileno(class="form-control text-dark", placeholder="10-digit mobile no.") }}
+          {% if edit_form.mobileno.errors %}
+            {{ edit_form.mobileno(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+            {% for error in edit_form.mobileno.errors %}
+              <span>{{error}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{ edit_form.mobileno(class="form-control text-dark", placeholder="10-digit mobile no.") }}
+          {% endif %}
         </div>
 
         <div class="form-group-1">
             {{ edit_form.dateofbirth.label(class="form-control-label") }}
-          {{ edit_form.dateofbirth(class="form-control text-dark") }}
+            {% if edit_form.dateofbirth.errors %}
+            {{ edit_form.dateofbirth(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+            {% for error in edit_form.dateofbirth.errors %}
+              <span>{{error}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{ edit_form.dateofbirth(class="form-control text-dark") }}
+          {% endif %}
         </div>
 
 
