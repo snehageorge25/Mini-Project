@@ -6,12 +6,11 @@
             {% if books %}
             {% for book in books %}
                 <div class="card m-2" style="width: 15rem;">
-                    <img class="card-img-top" src="static/book_images/{{ book['image_id'] }}" alt="Card image cap">
+                    <img class="card-img" src="static/book_images/{{ book['image_id'] }}" alt="Card image cap">
                     <div class="card-body">
-                    <h5 class="card-title">{{ book['book_name'] }}</h5>
+                    <h3 class="card-title">{{ book['book_name'] }}</h3>
                     <p class="card-text">
                         {{ book['book_author'] }} <br>
-                        {{ book['publication'] }}
                     </p>
                     <a href="/view/{{ book['book_id'] }}" class="btn theme-bg rounded-pill">VIEW</a>
                     </div>

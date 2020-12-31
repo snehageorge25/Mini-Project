@@ -14,6 +14,8 @@ background: linear-gradient(to right,#5F0A87,#A4508B);  */
    background: azure;
 }
 
+
+
 .w-90{
     width:90%;
 }
@@ -59,6 +61,91 @@ background: linear-gradient(to right,#5F0A87,#A4508B);  */
     color: var(--col-1);
     font-family: 'Dancing Script', cursive;
     font-weight: bold;
+}
+
+.card
+{
+   width: 280px;
+   height: 360px;
+   padding: 2rem 1rem;
+   background:lightblue;
+   position: relative;
+   display: flex;
+   box-shadow: 0px 7px 10px rgba(0,0,0.5);
+   transition: 0.5s ease-in-out ; 
+}
+
+.card:hover
+{
+   transform:perspective(5000px) translateZ(100px);
+}
+
+.card::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,rgba(0,176,155,0.5),rgba(150,201,61,1));
+    z-index: 2;
+    transition: 0.5s all;
+    opacity: 0;
+}
+
+.card:hover:before
+{
+    opacity: 1;
+}
+
+.card .card-img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card .card-body{
+    position: relative;
+    z-index: 3;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.5s all;
+}
+
+.card:hover .card-body{
+    opacity:1;
+    transform: translateY(30px);
+}
+
+.card .card-body h3{
+    margin: 0;
+}
+
+.card .card-body p{
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.card .card-body .btn{
+    text-decoration: none;
+    padding:0.5rem 1rem;
+    background: #ffffff;
+    font-size: 14px;
+    font-weight:bold ;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+}
+
+.card .card-body .btn:hover{
+    background-color: var(--col-1);
+    box-shadow: -5px 5px 3px -2px #000000;
 }
 
 /* form start  */
