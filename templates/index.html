@@ -46,8 +46,8 @@
 <br>
 
 <div class="container">
-  <div class="row my-3">
-    <div class="col-lg-3 col-md-4 border-right border-dark" style="height:80vh">
+  <div class="row my-3 p-2 text-center">
+    <div class="col-lg-3 col-md-4 pb-3 divider">
       <h2 class="text-center">Branch<h2>
           <a href="/categories/Computer" class="btn btn-lg btn-block category-btns rounded-pill">Computer </a>
           <a href="/categories/Information Technology" class="btn btn-lg btn-block category-btns rounded-pill">Information Technology </a>
@@ -58,10 +58,10 @@
     </div>
 
 
-    <div class="col-lg-9 col-md-8 pl-5">
+    <div class="col-lg-9 col-md-8 pl-4 text-center">
       <div class="row p-2">
         {% for book in books %}
-        <div class="card m-2" style="width: 15rem;">
+        <div class="card m-3" style="width: 15rem;">
           <img class="card-img" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
           <div class="card-body">
             <h3 class="card-title">{{ book['book_name'] }}</h3>

@@ -13,6 +13,7 @@ app.secret_key = "bookmart"
 conn = connect()
 
 
+# inject current user to template context
 @app.context_processor
 def utility_processor():
     if 'logged_in' in session:
@@ -26,6 +27,7 @@ def utility_processor():
         return {'user':'not_logged_in'}
 
 
+# decorator to check whether user is logged in 
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):

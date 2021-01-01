@@ -3,8 +3,8 @@
 
 <div class="container my-4">
     <div class="row">
-        <div class="col-lg-3 col-md-4 border-right border-dark" style="height:80vh">
-            <div class="text-center">
+        <div class="col-lg-3 col-md-4 divider">
+            <div class="text-center p-2">
                 <img src="{{ url_for('static', filename='images/emptyprofile.jpg') }}" class="img-fluid rounded-circle my-2">
                 <p><b>{{ user['name'] }}</b></p>
                 <p>{{ user['email'] }}</p>
@@ -14,7 +14,7 @@
                 <a class="btn category-btns1 rounded-pill m-2" href="/sold_books">Sold Books</a>
             </div>
         </div>
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-9 col-md-8 p-2">
             {% block content %} {% endblock %}
         </div>
     </div>

@@ -4,23 +4,67 @@
 {% block content %}
 <div>
    <div class="col-12 text-right p-0"> 
-         <div class="btn theme-bg p-1 mb-1"><a class="text-dark text-decoration-none" href="/edit_profile">Edit Profile</a></div>
+         <div class="btn theme-bg p-1 mb-1 mr-3"><a class="text-dark text-decoration-none" href="/edit_profile">
+         {% if user.profile_completed %}
+            Edit Profile
+         {% else %}
+            Complete your profile
+         {% endif %}
+         </a></div>
    </div>
-   <div class="border border-dark p-2">
-      <table>
-         <tr>
-            <th>Name:</th>
-            <td>{{ user.name }}</td>
-         </tr>
-         <tr>
-            <th>Email:</th>
+   <div class="border border-dark p-2 mt-1 mx-3">
+
+      <table class="table">
+         <tbody>
+           <tr style="border-top: hidden;">
+             <th scope="row">Name</th>
+             <td>{{ user.name }}</td>
+           </tr>
+           <tr>
+            <th scope="row">Email</th>
             <td>{{ user.email }}</td>
-         </tr>
-         <tr>
-            <th>Something else:</th>
-            <td>Info</td>
-         </tr>
-      </table>
+          </tr>
+          <tr>
+            <th>Date of Birth:</th>
+            {% if user.dob %}
+               <td>{{ user.dob }}</td>
+            {% else %}
+               <td>--</td>
+            {% endif %}
+          <tr>
+            <th scope="row">Mobile No.</th>
+            {% if user.mobile_no%}
+               <td>{{ user.mobile_no }}</td>
+            {% else %}
+               <td>--</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th scope="row">Address line 1</th>
+            {% if user.addr1 %}
+               <td>{{ user.addr1 }}</td>
+            {% else %}
+               <td>--</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th scope="row">Address line 2</th>
+            {% if user.addr2 %}
+               <td>{{ user.addr2 }}</td>
+            {% else %}
+               <td>--</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th scope="row">Pincode</th>
+            {% if user.pin_code %}
+               <td>{{ user.pin_code }}</td>
+            {% else %}
+               <td>--</td>
+            {% endif %}
+          </tr>
+         </tbody>
+       </table>
    </div>
 </div>
  

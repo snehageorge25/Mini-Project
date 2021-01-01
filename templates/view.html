@@ -5,12 +5,12 @@
 <div class="container-fluid p-5 bt-0 mt-0">
   <div class="container bg-white ">
     <div class="row p-3">
-      <div class="col-12 col-md-6 border-right border-grey" style="height:80vh">
+      <div class="col-12 col-md-6 divider">
           <div class="col-lg-10">
-            <img class="img-fluid d-block mx-auto pl-lg-5 p-md-3" style="max-height: 80vh;" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
+            <img class="img-fluid d-block mx-auto p-3 pl-lg-5 p-md-3" style="max-height: 80vh;" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
           </div>
       </div>
-      <div class="col-12 col-md-6 pl-5 pt-3">
+      <div class="col-12 col-md-6 pl-5 pt-3 text-wrap">
         <h2>{{ book['book_name'] }}</h2>
         <p class="card-text">
         by {{ book['book_author'] }} <br>
