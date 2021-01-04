@@ -2,6 +2,7 @@
 {% block title %} UseMyBook {% endblock %} 
 
 {% block body %}
+
 <div class="container-fluid p-5 bt-0 mt-0">
   <div class="container bg-white ">
     <div class="row p-3">
@@ -24,6 +25,7 @@
         <h5><b> Discounted Price:</b> <i class="fas fa-rupee-sign"></i>{{ book['discounted_price'] }}</h5>
         </p>
         <a href="/view/{{ book['book_id'] }}" class="btn btn-success">BUY NOW</a>
+        <a href="/cart/{{ book['book_id'] }}" class="btn btn-success">ADD TO CART</a>
         </div>
     </div>
   </div>

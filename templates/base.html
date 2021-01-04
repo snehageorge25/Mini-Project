@@ -47,13 +47,6 @@
               <button class="btn my-sm-0 collapse navbar-collapse" type="submit"><i class="fa fa-search"
                   style="font-size:24px;color:white"></i></button>
             </form>
-            <!-- <p></p>
-            {% for item in data %}
-                <tr>
-                    <td> {{item[0]}} by {{item[1]}}</td>
-                    </br>
-                </tr>
-            {% endfor %} -->
 
             <li class="nav-item dropdown">
               <a id='profile' class="nav-link navbar-toggler pl-3 py-2 dropdown-toggle" data-toggle="dropdown"
@@ -74,7 +67,7 @@
               <a class="nav-link navbar-toggler pl-3 pt-2" href="#">
                 Cart
               </a>
-              <a class="nav-link pl-3" href="#">
+              <a class="nav-link pl-3" href="{{ url_for('cart') }}">
                 <i class="fa fa-shopping-cart collapse navbar-collapse" style="font-size:24px;color:white"></i>
               </a>
             </li>

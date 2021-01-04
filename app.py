@@ -146,6 +146,10 @@ def search():
     searched_books = cursor.fetchall()
     return render_template('search.html', books=searched_books)
     
+@app.route('/cart')
+@login_required
+def cart():
+    return render_template('cart.html')
 
 @app.route('/categories/<branch_name>/')
 @login_required
