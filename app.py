@@ -1,6 +1,7 @@
 import os
+from PIL import Image
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from forms import RegistrationForm, LoginForm, SellBooksForm, EditProfileForm
+from forms import RegistrationForm, LoginForm, SellBooksForm, EditProfileForm, ProfilePicForm
 from sqlcon import connect
 import random
 from functools import wraps
@@ -92,12 +93,19 @@ def login():
     return render_template('login.html', form = form)
 
 
-def save_picture(form_image):
-    img_id = "I" + str(random.randint(100, 999)) + str(random.randint(100, 999)) + str(random.randint(100, 999))
+def save_picture(form_image, type):
+    img_id = type + str(random.randint(100, 999)) + str(random.randint(100, 999)) + str(random.randint(100, 999))
     _, f_ext = os.path.splitext(form_image.filename)
     pic_fn = img_id + f_ext
-    pic_path = os.path.join('static/book_images', pic_fn)
-    form_image.save(pic_path)
+    if type == "P":
+        pic_path = os.path.join('static/profile_pics', pic_fn)
+        output_size = (200,200)
+        i = Image.open(form_image)
+        i.thumbnail(output_size)
+        i.save(pic_path)
+    else:
+        pic_path = os.path.join('static/book_images', pic_fn)
+        form_image.save(pic_path)
     return pic_fn
 
 
@@ -120,7 +128,7 @@ def sell_books():
             cond_dict = {'Fine/Like New': 0.10, 'Good': 0.20, 'Fair': 0.30, 'Poor': 0.40}
             book_oprice = float(request.form.get("price"))
             book_dprice = book_oprice - book_oprice*float(cond_dict[condition])
-            book_image = save_picture(form.image.data)
+            book_image = save_picture(form.image.data, "I")
             date_added = str(date.today())
             new_book = f'INSERT INTO `books`(`book_id`, `book_name`, `book_author`, `publication_name`,`branch_id`, `edition`, `isbn`, `book_condition`, `price`, `discounted_price`, `image_id`, `date_added`) VALUES ("{book_id}","{book_name}","{book_author}","{publication}", {branch_id}, {book_edition}, "{isbn}", "{condition}", {book_oprice}, {book_dprice}, "{book_image}", "{date_added}")'
             user_id = session['id']
@@ -161,10 +169,25 @@ def categories(branch_name):
     return render_template('index.html', books=branchbooks, branch=branch_name)
 
 
-@app.route('/profile')
+@app.route('/profile',  methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html')
+    form = ProfilePicForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        profilepic = save_picture(form.picture.data, "P")
+        user_dict = utility_processor()
+        user = user_dict['user']
+        user_id = user['user_id']
+        profilepic_query = f'UPDATE `users` SET `profilepic_id`="{profilepic}" WHERE `user_id`="{user_id}"'
+        if user['profilepic_id'] != 'default.jpg':
+            remove_profile = 'static/profile_pics/' + user['profilepic_id']
+            os.remove(remove_profile)
+        cursor = conn.cursor()
+        cursor.execute(profilepic_query)
+        conn.commit()
+        flash('Profile Picture Uploaded!', 'success')
+        return redirect(url_for('profile'))
+    return render_template('profile.html', form=form)
 
 @app.route('/edit_profile',  methods=['GET', 'POST'])
 @login_required
@@ -190,6 +213,11 @@ def edit_profile():
     elif request.method == 'GET':
         edit_form.name.data = user['name']
         edit_form.email.data = user['email']
+        if user['profile_completed'] == 1:
+            edit_form.mobileno.data = user['mobile_no']
+            edit_form.addressline1.data = user['addr1']
+            edit_form.addressline2.data = user['addr2']
+            edit_form.pincode.data = user['pin_code']
     return render_template('edit_profile.html', edit_form=edit_form)
 
 @app.route('/bought_books')
@@ -200,7 +228,14 @@ def bought_books():
 @app.route('/sold_books')
 @login_required
 def sold_books():
-    return render_template('soldbooks.html')
+    user_dict = utility_processor()
+    user = user_dict['user']
+    user_id = user['user_id']
+    sold_books = f'SELECT * FROM `books` WHERE `book_id` IN (SELECT `book_id` FROM `sellers` WHERE `seller_id`="{user_id}")'
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(sold_books)
+    books = cursor.fetchall()
+    return render_template('soldbooks.html', books=books)
 
 @app.route('/view/<book_id>/')
 @login_required

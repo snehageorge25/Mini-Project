@@ -66,6 +66,21 @@
          </tbody>
        </table>
    </div>
+   <form action="" method="POST" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <div class="form-group-1 ml-3">
+         <small>
+            <b>{{ form.picture.label(class="form-control-label") }}</b>
+            {{ form.picture(class="form-control-file") }}
+            {% if form.picture.errors %}
+               {% for error in form.picture.errors %}
+                  <span class="text-danger">{{error}}</span>
+               {% endfor %}
+            {% endif %}
+            {{ form.submit(class="btn theme-bg p-1 mt-2") }}
+         </small>
+     </div>
+   </form>
 </div>
  
  {% endblock %}

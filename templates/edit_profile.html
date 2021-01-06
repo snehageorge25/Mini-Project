@@ -48,7 +48,7 @@
           {% endfor %}
           </div>
           {% else %}
-            {{ edit_form.dateofbirth(class="form-control text-dark") }}
+              {{ edit_form.dateofbirth(class="form-control text-dark", value="user.dob") }}
           {% endif %}
         </div>
 

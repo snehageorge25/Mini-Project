@@ -124,15 +124,12 @@
 
             <div class="form-group-1">
               {{ book_form.image.label(class="form-control-label") }}
+              {{ book_form.image(class="form-control-file col-sm-10") }}
               {% if book_form.image.errors %}
               {{ book_form.image(class="form-control-file col-sm-10 is-invalid") }}
-              <div class="invalid-feedback">
                 {% for error in book_form.image.errors %}
-                <span>{{error}}</span>
+                <span class="text-danger">{{error}}</span>
                 {% endfor %}
-              </div>
-              {% else %}
-              {{ book_form.image(class="form-control-file col-sm-10") }}
               {% endif %}
           </div>
             <!-- <div class="form-group-1">

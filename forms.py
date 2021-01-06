@@ -40,3 +40,7 @@ class EditProfileForm(FlaskForm):
     mobileno = StringField("Mobile No.", validators=[InputRequired(), Length(10)]) 
     dateofbirth = DateField("Date of Birth", validators=[InputRequired()])
     submit = SubmitField('Submit')
+
+class ProfilePicForm(FlaskForm):
+    picture = FileField('Update Profile Picture', validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Images only!')])
+    submit = SubmitField('Submit')

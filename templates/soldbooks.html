@@ -2,9 +2,28 @@
 {% block title %} My Profile | Sold books {% endblock %}
 
 {% block content %}
- <div class="border border-warning">
- Oops... U have sold no books
- <br>
- <a href="/sell_books">Click here</a> to sell
- </div>
+ 
+{% if books %}
+{% for book in books %}
+<div class="border border-info p-2 m-2">
+    <div class="row">
+        <div class="col-9 col-md-8 col-lg-10 ">
+            <h3>{{ book['book_name'] }}</h3>
+            <p>{{ book['book_author'] }}</p>
+            <p>Date Added: {{ book['date_added'] }}</p>
+        </div>
+        <div class="col-3 col-md-4 col-lg-2">
+            <img class="img-fluid mr-auto" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="border border-info p-2 m-2">
+    Oops... U have sold no books
+    <br>
+    <a href="{{ url_for('sell_books') }}">Click here</a> to sell
+</div>
+{% endif %}
+
  {% endblock %}
