@@ -61,12 +61,17 @@ def signup():
         password = request.form.get("password").encode('utf-8')
         hashed=bcrypt.hashpw(password,bcrypt.gensalt()).decode()
         date_joined = str(date.today())
-        new_user = f'INSERT INTO `users`(`user_id`,`name`, `email`, `password`,`date_joined`) VALUES ("{user_id}","{name}", "{email}", "{hashed}","{date_joined}")'
-        cursor = conn.cursor()
-        cursor.execute(new_user)
-        conn.commit()
-        flash('Signed up Successfully! Proceed to Login.','success')
-        return redirect(url_for('login'))
+        email_exists=f'SELECT * FROM `users` WHERE `email` = "{ email }"'
+        cursor = conn.cursor(buffered=True)
+        cursor.execute(email_exists)
+        if cursor.rowcount==1:
+            flash('Email already exists!Please try a different one.','danger')
+        else:    
+            new_user = f'INSERT INTO `users`(`user_id`,`name`, `email`, `password`,`date_joined`) VALUES ("{user_id}","{name}", "{email}", "{hashed}","{date_joined}")'
+            cursor.execute(new_user)
+            conn.commit()
+            flash('Signed up Successfully! Proceed to Login.','success')
+            return redirect(url_for('login'))
     return render_template('signup.html', form = form)
 
 @app.route('/login', methods=['GET', 'POST'])
