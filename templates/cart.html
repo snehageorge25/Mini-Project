@@ -1,5 +1,37 @@
 {% extends "base.html" %}
-{% block title %} UseMyBook {% endblock %} 
+{% block title %} UseMyBook | Cart {% endblock %} 
 
 {% block body %}
+<div class="container">
+    
+ 
+{% if books %}
+{% for book in books %}
+<div class="border border-info p-2 m-2">
+    <div class="row">
+        <div class="col-9 col-md-8 col-lg-10 ">
+            <h3>{{ book['book_name'] }}</h3>
+            <p>{{ book['book_author'] }}</p>
+            {% if book['book_available'] %}
+            <p class="text-success"> <b>Book Available</b> </p>
+            {% else %}
+            <p class="text-warning"><b>Sorry! Book Unavailable</b> </p>
+            {% endif %}
+        </div>
+        <div class="col-3 col-md-4 col-lg-2">
+            <img class="img-fluid mr-auto" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="border border-info p-2 m-2">
+    Oops... Your cart is empty!
+    <br>
+    <a href="{{ url_for('buy_books') }}">Click here</a> to continue shopping
+</div>
+{% endif %}
+
+
+</div>
 {% endblock %}

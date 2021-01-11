@@ -158,11 +158,7 @@ def search():
     cursor.execute(book_search)
     searched_books = cursor.fetchall()
     return render_template('search.html', books=searched_books)
-    
-@app.route('/cart')
-@login_required
-def cart():
-    return render_template('cart.html')
+
 
 @app.route('/categories/<branch_name>/')
 @login_required
@@ -245,11 +241,39 @@ def sold_books():
 @app.route('/view/<book_id>/')
 @login_required
 def view(book_id):
+    print(book_id)
     book = f'SELECT * FROM `books` WHERE `book_id`="{book_id}"'
     cursor = conn.cursor(dictionary=True)
     cursor.execute(book)
     curr_book = cursor.fetchone()
     return render_template('view.html', book=curr_book)
+
+
+@app.route('/addbook_to_cart/<book_id>/')
+@login_required
+def addbook_to_cart(book_id):
+    if 'cart' in session:
+        cart_list = session['cart']
+        cart_list.append(book_id)
+        cart_list = list(set(cart_list))
+        session['cart'] = cart_list
+    else:
+        cart_list = [book_id]
+        session['cart'] = cart_list
+    flash('Book added to cart!', 'success')
+    return redirect(url_for('view', book_id=book_id))
+
+    
+@app.route('/cart')
+@login_required
+def cart():
+    cart = session['cart']
+    cart_string = "'"+ "','".join(cart) + "'"
+    cart_query = f'SELECT * FROM `books` WHERE `book_id` IN ({cart_string})'
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(cart_query)
+    books = cursor.fetchall()
+    return render_template('cart.html', books=books)
 
 
 @app.route('/logout', methods=['GET','POST'])
@@ -258,6 +282,7 @@ def logout():
     flash('Logged out Successfully!','warning')
     session.pop('logged_in')
     session.pop('id')
+    session.pop('cart')
     return redirect(url_for('login'))
 
 

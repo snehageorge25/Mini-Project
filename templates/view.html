@@ -25,8 +25,8 @@
         <h5><b> Discounted Price:</b> <i class="fas fa-rupee-sign"></i>{{ book['discounted_price'] }}</h5>
         </p>
         <a href="/view/{{ book['book_id'] }}" class="btn btn-success">BUY NOW</a>
-        <a href="/cart/{{ book['book_id'] }}" class="btn btn-success">ADD TO CART</a>
-        </div>
+        <a href="{{ url_for('addbook_to_cart', book_id=book['book_id']) }}" class="btn btn-success">ADD TO CART</a>
+      </div>
     </div>
   </div>
 </div>
