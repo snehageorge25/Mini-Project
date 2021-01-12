@@ -3,35 +3,41 @@
 
 {% block body %}
 <div class="container">
-    
- 
+
 {% if books %}
+<a href="{{ url_for('empty_cart') }}" class="btn btn-danger">EMPTY CART</a> 
 {% for book in books %}
 <div class="border border-info p-2 m-2">
     <div class="row">
         <div class="col-9 col-md-8 col-lg-10 ">
             <h3>{{ book['book_name'] }}</h3>
-            <p>{{ book['book_author'] }}</p>
+            <h6>{{ book['book_author'] }}</h6>
+            <h6>{{ book['publication_name'] }}</h6>
+            <h6><i class="fas fa-rupee-sign"></i> {{book['discounted_price']}}</h6>
             {% if book['book_available'] %}
             <p class="text-success"> <b>Book Available</b> </p>
             {% else %}
             <p class="text-warning"><b>Sorry! Book Unavailable</b> </p>
             {% endif %}
+            <br>
+            <a href="#" class="btn btn-success">BUY NOW</a>
+            <a href="{{ url_for('remove_from_cart', book_id=book['book_id']) }}" class="btn btn-danger">REMOVE</a>
         </div>
         <div class="col-3 col-md-4 col-lg-2">
             <img class="img-fluid mr-auto" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">
         </div>
     </div>
-</div>
+</div> 
 {% endfor %}
 {% else %}
-<div class="border border-info p-2 m-2">
-    Oops... Your cart is empty!
+<div >
+    <h3>Oops... Your cart is empty!</h3>
+    <h6>Your shopping cart is waiting.Give it purpose – fill it with the books you need for your uninterrupted progress.</h6>
+    <h6>Then why wait? Go ahead.Start shopping now!</h6>
     <br>
-    <a href="{{ url_for('buy_books') }}">Click here</a> to continue shopping
+    <a href="{{ url_for('home')}}" class="btn btn-warning">CONTINUE SHOPPING</a>
 </div>
 {% endif %}
-
-
+<br>
 </div>
 {% endblock %}

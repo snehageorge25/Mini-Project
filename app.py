@@ -241,7 +241,6 @@ def sold_books():
 @app.route('/view/<book_id>/')
 @login_required
 def view(book_id):
-    print(book_id)
     book = f'SELECT * FROM `books` WHERE `book_id`="{book_id}"'
     cursor = conn.cursor(dictionary=True)
     cursor.execute(book)
@@ -263,7 +262,26 @@ def addbook_to_cart(book_id):
     flash('Book added to cart!', 'success')
     return redirect(url_for('view', book_id=book_id))
 
-    
+@app.route('/remove_from_cart/<book_id>/')
+@login_required
+def remove_from_cart(book_id):
+    if 'cart' in session:
+        cart_list = session['cart']
+        cart_list.remove(book_id)
+        cart_list = list(set(cart_list))
+        session['cart'] = cart_list
+    return redirect(url_for('cart', book_id=book_id))
+
+@app.route('/empty_cart') 
+@login_required
+def empty_cart():
+    if 'cart' in session:
+        cart_list = session['cart']
+        cart_list.clear()
+        cart_list = list(set(cart_list))
+        session['cart'] = cart_list
+    return redirect(url_for('cart'))    
+
 @app.route('/cart')
 @login_required
 def cart():
