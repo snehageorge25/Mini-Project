@@ -11,6 +11,8 @@
             <h3>{{ book['book_name'] }}</h3>
             <p>{{ book['book_author'] }}</p>
             <p>Date Added: {{ book['date_added'] }}</p>
+            <a href="{{ url_for('view', book_id=book['book_id']) }}" class="btn btn-success">VIEW</a>
+            <a href="{{ url_for('delete_book', book_id=book['book_id']) }}" class="btn btn-danger">DELETE</a>
         </div>
         <div class="col-3 col-md-4 col-lg-2">
             <img class="img-fluid mr-auto" src="/static/book_images/{{ book['image_id'] }}" alt="Book Image">

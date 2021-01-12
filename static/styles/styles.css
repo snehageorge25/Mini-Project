@@ -206,7 +206,7 @@ background: linear-gradient(to right,#5F0A87,#A4508B);  */
 
 .divider{
     border-right: 1px solid black;
-    height: 80vh;
+    height: auto;
 }
 
 @media screen and (max-width: 767px) {

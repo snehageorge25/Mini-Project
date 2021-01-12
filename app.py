@@ -88,6 +88,8 @@ def login():
             if bcrypt.checkpw(password,user['password'].encode('utf-8')):
                 session['logged_in']=True
                 session['id']=user['user_id']
+                cart = []
+                session['cart'] = cart
                 flash('Logged in Successfully!','success')
                 return redirect(url_for('home'))
             else:
@@ -238,6 +240,18 @@ def sold_books():
     books = cursor.fetchall()
     return render_template('soldbooks.html', books=books)
 
+
+@app.route('/delete_book/<book_id>/')
+@login_required
+def delete_book(book_id):
+    delete = f'DELETE FROM `books` WHERE `book_id`="{book_id}"'
+    cursor = conn.cursor()
+    cursor.execute(delete)
+    conn.commit()
+    flash('Book deleted', 'warning')
+    return redirect(url_for('sold_books'))
+
+
 @app.route('/view/<book_id>/')
 @login_required
 def view(book_id):
@@ -251,36 +265,33 @@ def view(book_id):
 @app.route('/addbook_to_cart/<book_id>/')
 @login_required
 def addbook_to_cart(book_id):
-    if 'cart' in session:
-        cart_list = session['cart']
-        cart_list.append(book_id)
-        cart_list = list(set(cart_list))
-        session['cart'] = cart_list
-    else:
-        cart_list = [book_id]
-        session['cart'] = cart_list
+    cart_list = session['cart']
+    cart_list.append(book_id)
+    cart_list = list(set(cart_list))
+    session['cart'] = cart_list
     flash('Book added to cart!', 'success')
     return redirect(url_for('view', book_id=book_id))
+
 
 @app.route('/remove_from_cart/<book_id>/')
 @login_required
 def remove_from_cart(book_id):
-    if 'cart' in session:
-        cart_list = session['cart']
-        cart_list.remove(book_id)
-        cart_list = list(set(cart_list))
-        session['cart'] = cart_list
+    cart_list = session['cart']
+    cart_list.remove(book_id)
+    cart_list = list(set(cart_list))
+    session['cart'] = cart_list
     return redirect(url_for('cart', book_id=book_id))
+
 
 @app.route('/empty_cart') 
 @login_required
 def empty_cart():
-    if 'cart' in session:
-        cart_list = session['cart']
-        cart_list.clear()
-        cart_list = list(set(cart_list))
-        session['cart'] = cart_list
+    cart_list = session['cart']
+    cart_list.clear()
+    cart_list = list(set(cart_list))
+    session['cart'] = cart_list
     return redirect(url_for('cart'))    
+
 
 @app.route('/cart')
 @login_required
@@ -291,7 +302,10 @@ def cart():
     cursor = conn.cursor(dictionary=True)
     cursor.execute(cart_query)
     books = cursor.fetchall()
-    return render_template('cart.html', books=books)
+    total_sum = 0
+    for book in books:
+        total_sum += book['discounted_price']
+    return render_template('cart.html', books=books, total_sum=total_sum)
 
 
 @app.route('/logout', methods=['GET','POST'])
@@ -302,7 +316,6 @@ def logout():
     session.pop('id')
     session.pop('cart')
     return redirect(url_for('login'))
-
 
 
 if __name__ == '__main__':

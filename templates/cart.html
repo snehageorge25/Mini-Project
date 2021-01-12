@@ -29,11 +29,13 @@
     </div>
 </div> 
 {% endfor %}
+Total price : {{ total_sum }}
+
 {% else %}
 <div >
     <h3>Oops... Your cart is empty!</h3>
-    <h6>Your shopping cart is waiting.Give it purpose – fill it with the books you need for your uninterrupted progress.</h6>
-    <h6>Then why wait? Go ahead.Start shopping now!</h6>
+    <h6>Your shopping cart is waiting. Give it purpose – fill it with the books you need for your uninterrupted progress.</h6>
+    <h6>Then why wait? Go ahead. Start shopping now!</h6>
     <br>
     <a href="{{ url_for('home')}}" class="btn btn-warning">CONTINUE SHOPPING</a>
 </div>
