@@ -125,6 +125,8 @@ background: linear-gradient(to right,#5F0A87,#A4508B);  */
 
 .card .card-body h3{
     margin: 0;
+    font-size: 23px;
+    font-weight: 500;
 }
 
 .card .card-body p{
