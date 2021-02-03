@@ -20,7 +20,7 @@
             <p class="text-warning"><b>Sorry! Book Unavailable</b> </p>
             {% endif %}
             <br>
-            <a href="#" class="btn btn-success">BUY NOW</a>
+            <a href="{{ url_for('buy_book', book_id=book['book_id']) }}" class="btn btn-success">BUY NOW</a>
             <a href="{{ url_for('remove_from_cart', book_id=book['book_id']) }}" class="btn btn-danger">REMOVE</a>
         </div>
         <div class="col-3 col-md-4 col-lg-2">
@@ -31,7 +31,7 @@
 {% endfor %}
 <div class="pt-1">
 <h4 class="float-left pl-2">Total price :<i class="fas fa-rupee-sign"></i> {{ total_sum }}</h4> 
-<a href="#" class="btn btn-warning float-right mr-2 ">PROCEED TO PAY</a>
+<a href="{{ url_for('buy_book', book_id='ALL') }}" class="btn btn-warning float-right mr-2 ">PROCEED TO PAY</a>
 </div>
 <br>
 {% else %}

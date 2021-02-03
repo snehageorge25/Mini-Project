@@ -308,6 +308,28 @@ def cart():
     return render_template('cart.html', books=books, total_sum=total_sum)
 
 
+@app.route('/buy_book/<book_id>')
+@login_required
+def buy_book(book_id):
+    if book_id=='ALL':
+        cart = session['cart']
+        cart_string = "'"+ "','".join(cart) + "'"
+        cart_query = f'SELECT * FROM `books` WHERE `book_id` IN ({cart_string})'
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(cart_query)
+        books = cursor.fetchall()
+        total_sum = 0
+        for book in books:
+            total_sum += book['discounted_price']
+    else:
+        book_query = f'SELECT * FROM `books` WHERE `book_id`="{book_id}"'
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(book_query)
+        book = cursor.fetchone()
+        total_sum = book['discounted_price']
+    return render_template('buybook.html', total_sum=total_sum)
+
+
 @app.route('/logout', methods=['GET','POST'])
 @login_required
 def logout():
