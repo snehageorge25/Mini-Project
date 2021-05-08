@@ -25,8 +25,11 @@
         <h5><b> Discounted Price:</b> <i class="fas fa-rupee-sign"></i>{{ book['discounted_price'] }}</h5>
         </p>
         {% if book['book_available'] %}
+        <p class="text-success">Book Available</p>
         <a href="{{ url_for('buy_book', book_id=book['book_id']) }}" class="btn btn-success">BUY NOW</a>
         <a href="{{ url_for('addbook_to_cart', book_id=book['book_id']) }}" class="btn btn-success">ADD TO CART</a>
+        {% else %}
+        <p class="text-danger">Book Unavailable!</p>
         {% endif %}
       </div>
     </div>
