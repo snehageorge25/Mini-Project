@@ -27,7 +27,7 @@ buying as well as selling using the same login
 ![Categories](readme_images/Categories.png)
 
 **Viewing a book**
-![view book](readme_images/View book.png)
+![view book](readme_images/Viewbook.png)
 
 **Cart**
 ![Cart](readme_images/Cart.png)
@@ -36,13 +36,13 @@ buying as well as selling using the same login
 ![Bill](readme_images/Bill.png)
 
 **Add book**
-![Add new book](readme_images/Add new book.png)
+![Add new book](readme_images/Addnewbook.png)
 
 **Profile**
 ![User Profile](readme_images/User.png)
 
 **User Books**
-![User Books](readme_images/User books.png)
+![User Books](readme_images/Userbooks.png)
 
 **Search book by name**
 ![Search](readme_images/Search.png)
